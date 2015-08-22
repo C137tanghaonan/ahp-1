@@ -30,46 +30,34 @@
   width      : 400px;
   background : #ddd;
 }
-.ahp-shell-main-nav-name  {
-  top        : 0;
+.ahp-shell-main-nav-name, .ahp-shell-main-nav-criteria, .ahp-shell-main-nav-alternatives, 
+.ahp-shell-main-nav-compare-criteria, .ahp-shell-main-nav-compare-alternatives, .ahp-shell-main-nav-result  {
   left       : 0;
   right      : 0;
   height     : 100px;
+}
+.ahp-shell-main-nav-name  {
+  top        : 0;
   background : #bbb;
 }
 .ahp-shell-main-nav-criteria  {
   top        : 100px;
-  left       : 0;
-  right      : 0;
-  height     : 100px;
   background : #ccc;
 }
 .ahp-shell-main-nav-alternatives  {
   top        : 200px;
-  left       : 0;
-  right      : 0;
-  height     : 100px;
   background : #ddd;
 }
 .ahp-shell-main-nav-compare-criteria  {
   top        : 300px;
-  left       : 0;
-  right      : 0;
-  height     : 100px;
   background : #bbb;
 }
 .ahp-shell-main-nav-compare-alternatives  {
   top        : 400px;
-  left       : 0;
-  right      : 0;
-  height     : 100px;
   background : #ccc;
 }
 .ahp-shell-main-nav-result {
   top        : 500px;
-  left       : 0;
-  right      : 0;
-  height     : 100px;
   background : #ddd;
 }
 .ahp-shell-main-content {
