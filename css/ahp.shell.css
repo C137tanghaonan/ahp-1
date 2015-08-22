@@ -1,0 +1,86 @@
+/*
+ * ahp.shell.css
+ * Shell styles
+*/
+.ahp-shell-head, .ahp-shell-main, .ahp-shell-main-nav, .ahp-shell-main-content, .ahp-shell-foot ,
+.ahp-shell-main-nav-name, .ahp-shell-main-nav-criteria, .ahp-shell-main-nav-alternatives,
+.ahp-shell-main-nav-compare-criteria, .ahp-shell-main-nav-compare-alternatives, .ahp-shell-main-nav-result
+{
+  position : absolute;
+}
+.ahp-shell-head {
+  top        : 0;
+  left       : 0;
+  right      : 0;
+  height     : 80px;
+  background : #fff;
+}
+.ahp-shell-main {
+  top    : 80px;
+  left   : 0;
+  right  : 0;
+  height : 600px;
+}
+.ahp-shell-main-content,
+.ahp-shell-main-nav {
+  top    : 0;
+  bottom : 0;
+}
+.ahp-shell-main-nav {
+  width      : 400px;
+  background : #ddd;
+}
+.ahp-shell-main-nav-name  {
+  top        : 0;
+  left       : 0;
+  right      : 0;
+  height     : 100px;
+  background : #bbb;
+}
+.ahp-shell-main-nav-criteria  {
+  top        : 100px;
+  left       : 0;
+  right      : 0;
+  height     : 100px;
+  background : #ccc;
+}
+.ahp-shell-main-nav-alternatives  {
+  top        : 200px;
+  left       : 0;
+  right      : 0;
+  height     : 100px;
+  background : #ddd;
+}
+.ahp-shell-main-nav-compare-criteria  {
+  top        : 300px;
+  left       : 0;
+  right      : 0;
+  height     : 100px;
+  background : #bbb;
+}
+.ahp-shell-main-nav-compare-alternatives  {
+  top        : 400px;
+  left       : 0;
+  right      : 0;
+  height     : 100px;
+  background : #ccc;
+}
+.ahp-shell-main-nav-result {
+  top        : 500px;
+  left       : 0;
+  right      : 0;
+  height     : 100px;
+  background : #ddd;
+}
+.ahp-shell-main-content {
+  left       : 400px;
+  right      : 0;
+  background : #eee;
+}
+.ahp-shell-foot {
+  bottom     : 0;
+  left       : 0;
+  right      : 0;
+  top        : 680px;
+  background : #fff;
+}
