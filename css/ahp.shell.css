@@ -13,13 +13,13 @@
   left       : 0;
   right      : 0;
   height     : 80px;
-  background : #fff;
+  background : #FFF;
 }
 .ahp-shell-main {
   top    : 80px;
   left   : 0;
   right  : 0;
-  height : 600px;
+  height : 599px;
 }
 .ahp-shell-main-content,
 .ahp-shell-main-nav {
@@ -28,47 +28,52 @@
 }
 .ahp-shell-main-nav {
   width      : 400px;
-  background : #ddd;
+  background : #BBB;
 }
-.ahp-shell-main-nav-name, .ahp-shell-main-nav-criteria, .ahp-shell-main-nav-alternatives, 
-.ahp-shell-main-nav-compare-criteria, .ahp-shell-main-nav-compare-alternatives, .ahp-shell-main-nav-result  {
+.ahp-shell-main-nav-link  {
   left       : 0;
   right      : 0;
-  height     : 100px;
+  height     : 99px;
+  background : #F0F0F0;
 }
+  .current.ahp-shell-main-nav-link {
+    background : #C8C8C8;
+    cursor     : pointer;
+  }
+  .ready.ahp-shell-main-nav-link {
+    background : #E0E0E0;
+    cursor     : pointer;
+  }
+  .ready.ahp-shell-main-nav-link:hover, .current.ahp-shell-main-nav-link:hover {
+    background : #C0C0C0;
+  }
 .ahp-shell-main-nav-name  {
   top        : 0;
-  background : #bbb;
-}
-.ahp-shell-main-nav-criteria  {
-  top        : 100px;
-  background : #ccc;
 }
 .ahp-shell-main-nav-alternatives  {
+  top        : 100px;
+}
+.ahp-shell-main-nav-criteria  {
   top        : 200px;
-  background : #ddd;
 }
 .ahp-shell-main-nav-compare-criteria  {
   top        : 300px;
-  background : #bbb;
 }
 .ahp-shell-main-nav-compare-alternatives  {
   top        : 400px;
-  background : #ccc;
 }
 .ahp-shell-main-nav-result {
   top        : 500px;
-  background : #ddd;
 }
 .ahp-shell-main-content {
   left       : 400px;
   right      : 0;
-  background : #eee;
+  background : #F8F8F8;
 }
 .ahp-shell-foot {
   bottom     : 0;
   left       : 0;
   right      : 0;
-  top        : 680px;
-  background : #fff;
+  top        : 679px;
+  background : #FFF;
 }
