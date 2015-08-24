@@ -50,6 +50,15 @@ ahp.shell = (function () {
   //--------------------- END UTILITY METHODS ------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
+  markReady = function (key) {
+    $( "#ahp-shell-main-nav-".concat(key) ).addClass( "ready" );
+    return false;
+  }
+  markCurrent = function (key) {
+    $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
+    $( "#ahp-shell-main-nav-".concat(key) ).addClass( "current" );
+    return false;
+  }
   //--------------------- END DOM METHODS ----------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
@@ -57,12 +66,12 @@ ahp.shell = (function () {
     // mark ready
     Object.keys(stateMap.nav_map).forEach(function (key) { 
       if (stateMap.nav_map[key] == 1) {
-        $( "#ahp-shell-main-nav-".concat(key)).addClass( "ready" );
+        markReady ( key );
       }  
     })
     // mark current
-    $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
-    $( "#ahp-shell-main-nav-".concat(stateMap.nav_current)).addClass( "current" );
+    markCurrent ( stateMap.nav_current );
+    
     return false;
   }
   //-------------------- END EVENT HANDLERS --------------------
