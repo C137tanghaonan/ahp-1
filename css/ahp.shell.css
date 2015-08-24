@@ -39,13 +39,16 @@
     background : #E0E0E0;
     cursor     : pointer;
   }
+    .ready.ahp-shell-main-nav-link:hover {
+      background : #C0C0C0;
+    }
+  .done.ahp-shell-main-nav-link {
+    background : #FFFFFF;
+  }
   .current.ahp-shell-main-nav-link {
     background : #C8C8C8;
-    cursor     : pointer;
   }
-  .ready.ahp-shell-main-nav-link:hover, .current.ahp-shell-main-nav-link:hover {
-    background : #C0C0C0;
-  }
+
 #ahp-shell-main-nav-name  {
   top        : 0;
 }

@@ -32,17 +32,12 @@ ahp.shell = (function () {
     },
     stateMap  = {
       $container  : null,
-      nav_current : null,
-      nav_map     : {  // 0 - not ready, 1 - ready, 2 - done
-        'name'                 : 0,
-        'alternatives'         : 0,
-        'criteria'             : 0,
-        'compare-criteria'     : 0,
-        'compare-alternatives' : 0,
-        'result'               : 0
-      }
+      nav_current : null, 
+      nav_ready   : [],
+      nav_done    : []
     },
     
+    markReady, markDone, markCurrent, 
     onStatechange, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -54,6 +49,10 @@ ahp.shell = (function () {
     $( "#ahp-shell-main-nav-".concat(key) ).addClass( "ready" );
     return false;
   }
+  markDone = function (key) {
+    $( "#ahp-shell-main-nav-".concat(key) ).addClass( "done" );
+    return false;
+  }
   markCurrent = function (key) {
     $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
     $( "#ahp-shell-main-nav-".concat(key) ).addClass( "current" );
@@ -63,14 +62,13 @@ ahp.shell = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onStatechange = function ( event ) {
-    // mark ready
-    Object.keys(stateMap.nav_map).forEach(function (key) { 
-      if (stateMap.nav_map[key] == 1) {
-        markReady ( key );
-      }  
+    stateMap.nav_ready.forEach(function (key) { 
+      markReady( key ); 
     })
-    // mark current
-    markCurrent ( stateMap.nav_current );
+    stateMap.nav_done.forEach(function (key) { 
+      markDone( key ); 
+    })
+    markCurrent( stateMap.nav_current );
     
     return false;
   }
@@ -88,8 +86,8 @@ ahp.shell = (function () {
       return false;
     });
     
-    stateMap.nav_map["name"] = 1;  
-    stateMap.nav_map["result"] = 1;         // test 
+    stateMap.nav_ready = ["name", "result"];  
+    stateMap.nav_done = ["criteria"];       // test
     stateMap.nav_current = "alternatives";  // test 
 
     $(window)
