@@ -30,6 +30,11 @@ ahp.shell = (function () {
         + '</div>'
         + '<div class="ahp-shell-foot"></div>'
     },
+    stateMap  = {
+      $container : null,
+      nav_current : null
+    },
+    
     initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
@@ -40,18 +45,25 @@ ahp.shell = (function () {
   //--------------------- END DOM METHODS ----------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
+  onStatechange = function ( event ) {
+    $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
+    $( ".ahp-shell-main-nav-".concat(stateMap.nav_current)).addClass( "current" );
+    return false;
+  }
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
   // Begin Public method /initModule/
   initModule = function ( $container ) {
+    stateMap.$container = $container;
     $container.html( configMap.main_html );
     
-    $( ".ahp-shell-main-nav-link" ).bind( "click", function() {
-      $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
-      $( this ).addClass( "current" );
-    });
+    stateMap.nav_current = "name";
     
+    $(window)
+      .bind( 'statechange', onStatechange )
+      .trigger( 'statechange' );
+      
   };
   // End Public method /initModule/
 
