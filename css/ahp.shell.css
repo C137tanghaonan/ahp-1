@@ -3,8 +3,7 @@
  * Shell styles
 */
 .ahp-shell-head, .ahp-shell-main, .ahp-shell-main-nav, .ahp-shell-main-content, .ahp-shell-foot ,
-.ahp-shell-main-nav-name, .ahp-shell-main-nav-criteria, .ahp-shell-main-nav-alternatives,
-.ahp-shell-main-nav-compare-criteria, .ahp-shell-main-nav-compare-alternatives, .ahp-shell-main-nav-result
+.ahp-shell-main-nav-link
 {
   position : absolute;
 }
@@ -36,33 +35,33 @@
   height     : 99px;
   background : #F0F0F0;
 }
-  .current.ahp-shell-main-nav-link {
-    background : #C8C8C8;
-    cursor     : pointer;
-  }
   .ready.ahp-shell-main-nav-link {
     background : #E0E0E0;
+    cursor     : pointer;
+  }
+  .current.ahp-shell-main-nav-link {
+    background : #C8C8C8;
     cursor     : pointer;
   }
   .ready.ahp-shell-main-nav-link:hover, .current.ahp-shell-main-nav-link:hover {
     background : #C0C0C0;
   }
-.ahp-shell-main-nav-name  {
+#ahp-shell-main-nav-name  {
   top        : 0;
 }
-.ahp-shell-main-nav-alternatives  {
+#ahp-shell-main-nav-alternatives  {
   top        : 100px;
 }
-.ahp-shell-main-nav-criteria  {
+#ahp-shell-main-nav-criteria  {
   top        : 200px;
 }
-.ahp-shell-main-nav-compare-criteria  {
+#ahp-shell-main-nav-compare-criteria  {
   top        : 300px;
 }
-.ahp-shell-main-nav-compare-alternatives  {
+#ahp-shell-main-nav-compare-alternatives  {
   top        : 400px;
 }
-.ahp-shell-main-nav-result {
+#ahp-shell-main-nav-result {
   top        : 500px;
 }
 .ahp-shell-main-content {

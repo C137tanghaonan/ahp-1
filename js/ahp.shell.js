@@ -19,23 +19,31 @@ ahp.shell = (function () {
         + '<div class="ahp-shell-head"></div>'
         + '<div class="ahp-shell-main">'
           + '<div class="ahp-shell-main-nav">'
-            + '<div class="ahp-shell-main-nav-link ahp-shell-main-nav-name"></div>'
-            + '<div class="ahp-shell-main-nav-link ahp-shell-main-nav-alternatives"></div>'
-            + '<div class="ahp-shell-main-nav-link ahp-shell-main-nav-criteria"></div>'
-            + '<div class="ahp-shell-main-nav-link ahp-shell-main-nav-compare-criteria"></div>'
-            + '<div class="ahp-shell-main-nav-link ahp-shell-main-nav-compare-alternatives"></div>'
-            + '<div class="ahp-shell-main-nav-link ahp-shell-main-nav-result"></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-name"></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-alternatives"></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-criteria"></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-compare-criteria"></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-compare-alternatives"></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-result"></div>'
           + '</div>'
           + '<div class="ahp-shell-main-content"></div>'
         + '</div>'
         + '<div class="ahp-shell-foot"></div>'
     },
     stateMap  = {
-      $container : null,
-      nav_current : null
+      $container  : null,
+      nav_current : null,
+      nav_map     : {  // 0 - not ready, 1 - ready, 2 - done
+        'name'                 : 0,
+        'alternatives'         : 0,
+        'criteria'             : 0,
+        'compare-criteria'     : 0,
+        'compare-alternatives' : 0,
+        'result'               : 0
+      }
     },
     
-    initModule;
+    onStatechange, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //-------------------- BEGIN UTILITY METHODS -----------------
@@ -46,8 +54,15 @@ ahp.shell = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onStatechange = function ( event ) {
+    // mark ready
+    Object.keys(stateMap.nav_map).forEach(function (key) { 
+      if (stateMap.nav_map[key] == 1) {
+        $( "#ahp-shell-main-nav-".concat(key)).addClass( "ready" );
+      }  
+    })
+    // mark current
     $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
-    $( ".ahp-shell-main-nav-".concat(stateMap.nav_current)).addClass( "current" );
+    $( "#ahp-shell-main-nav-".concat(stateMap.nav_current)).addClass( "current" );
     return false;
   }
   //-------------------- END EVENT HANDLERS --------------------
@@ -58,8 +73,16 @@ ahp.shell = (function () {
     stateMap.$container = $container;
     $container.html( configMap.main_html );
     
-    stateMap.nav_current = "name";
+    $( ".ahp-shell-main-nav-link" ).bind( "click", function() {
+      stateMap.nav_current = this.id.replace("ahp-shell-main-nav-", ""); 
+      $(window).trigger( 'statechange' );
+      return false;
+    });
     
+    stateMap.nav_map["name"] = 1;  
+    stateMap.nav_map["result"] = 1;         // test 
+    stateMap.nav_current = "alternatives";  // test 
+
     $(window)
       .bind( 'statechange', onStatechange )
       .trigger( 'statechange' );
