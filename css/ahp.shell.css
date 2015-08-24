@@ -48,7 +48,13 @@
   .current.ahp-shell-main-nav-link {
     background : #C8C8C8;
   }
-
+.ahp-shell-main-nav-link-done {
+   height     : 99px;
+   width      : 10px;
+   float      : right;
+   background : #339933;
+   display    : none;
+}
 #ahp-shell-main-nav-name  {
   top        : 0;
 }

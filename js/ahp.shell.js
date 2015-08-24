@@ -19,12 +19,12 @@ ahp.shell = (function () {
         + '<div class="ahp-shell-head"></div>'
         + '<div class="ahp-shell-main">'
           + '<div class="ahp-shell-main-nav">'
-            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-name"></div>'
-            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-alternatives"></div>'
-            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-criteria"></div>'
-            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-compare-criteria"></div>'
-            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-compare-alternatives"></div>'
-            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-result"></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-name"><div class="ahp-shell-main-nav-link-done"></div></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-alternatives"><div class="ahp-shell-main-nav-link-done"></div></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-criteria"><div class="ahp-shell-main-nav-link-done"></div></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-compare-criteria"><div class="ahp-shell-main-nav-link-done"></div></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-compare-alternatives"><div class="ahp-shell-main-nav-link-done"></div></div>'
+            + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-result"><div class="ahp-shell-main-nav-link-done"></div></div>'
           + '</div>'
           + '<div class="ahp-shell-main-content"></div>'
         + '</div>'
@@ -50,10 +50,12 @@ ahp.shell = (function () {
     return false;
   }
   markDone = function (key) {
-    $( "#ahp-shell-main-nav-".concat(key) ).addClass( "done" );
+    markReady( key );
+    $( "#ahp-shell-main-nav-".concat(key) ).children().show();
     return false;
   }
   markCurrent = function (key) {
+    markReady( key );
     $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
     $( "#ahp-shell-main-nav-".concat(key) ).addClass( "current" );
     return false;
