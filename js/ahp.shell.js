@@ -46,6 +46,12 @@ ahp.shell = (function () {
   // Begin Public method /initModule/
   initModule = function ( $container ) {
     $container.html( configMap.main_html );
+    
+    $( ".ahp-shell-main-nav-link" ).bind( "click", function() {
+      $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
+      $( this ).addClass( "current" );
+    });
+    
   };
   // End Public method /initModule/
 
