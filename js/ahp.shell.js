@@ -82,9 +82,11 @@ ahp.shell = (function () {
     stateMap.$container = $container;
     $container.html( configMap.main_html );
     
-    $( ".ahp-shell-main-nav-link" ).bind( "click", function() {
-      stateMap.nav_current = this.id.replace("ahp-shell-main-nav-", ""); 
-      $(window).trigger( 'statechange' );
+    $( ".ahp-shell-main-nav-link" ).click(function() {
+      if ($(this).hasClass("ready")) {
+        stateMap.nav_current = this.id.replace("ahp-shell-main-nav-", "");     
+        $(window).trigger( 'statechange' );
+      }
       return false;
     });
     

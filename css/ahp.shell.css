@@ -42,18 +42,15 @@
     .ready.ahp-shell-main-nav-link:hover {
       background : #C0C0C0;
     }
-  .done.ahp-shell-main-nav-link {
-    background : #FFFFFF;
-  }
   .current.ahp-shell-main-nav-link {
     background : #C8C8C8;
   }
 .ahp-shell-main-nav-link-done {
-   height     : 99px;
-   width      : 10px;
-   float      : right;
-   background : #339933;
-   display    : none;
+  background-image: url('../img/check.png');
+  height     : 99px;
+  width      : 99px;
+  float      : right;
+  /* display    : none; */
 }
 #ahp-shell-main-nav-name  {
   top        : 0;
