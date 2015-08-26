@@ -38,26 +38,33 @@ ahp.shell = (function () {
     },
     
     markReady, markDone, markCurrent, 
+    navFullName, navKey,
     onStatechange, initModule;
   //----------------- END MODULE SCOPE VARIABLES ---------------
 
   //-------------------- BEGIN UTILITY METHODS -----------------
+  navFullName = function (key) {
+    return "#ahp-shell-main-nav-".concat(key);
+  }
+  navKey = function (fullname) {
+    return fullname.replace("ahp-shell-main-nav-", "");
+  }
   //--------------------- END UTILITY METHODS ------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
   markReady = function (key) {
-    $( "#ahp-shell-main-nav-".concat(key) ).addClass( "ready" );
+    $( navFullName(key) ).addClass( "ready" );
     return false;
   }
   markDone = function (key) {
     markReady( key );
-    $( "#ahp-shell-main-nav-".concat(key) ).children().show();
+    $( navFullName(key) ).children().show();
     return false;
   }
   markCurrent = function (key) {
     markReady( key );
     $( ".ahp-shell-main-nav-link" ).removeClass( "current" );
-    $( "#ahp-shell-main-nav-".concat(key) ).addClass( "current" );
+    $( navFullName(key) ).addClass( "current" );
     return false;
   }
   //--------------------- END DOM METHODS ----------------------
@@ -84,7 +91,7 @@ ahp.shell = (function () {
     
     $( ".ahp-shell-main-nav-link" ).click(function() {
       if ($(this).hasClass("ready")) {
-        stateMap.nav_current = this.id.replace("ahp-shell-main-nav-", "");     
+        stateMap.nav_current = navKey(this.id);     
         $(window).trigger( 'statechange' );
       }
       return false;
