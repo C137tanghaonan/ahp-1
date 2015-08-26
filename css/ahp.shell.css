@@ -50,7 +50,7 @@
   height     : 99px;
   width      : 99px;
   float      : right;
-  /* display    : none; */
+  display    : none; 
 }
 #ahp-shell-main-nav-name  {
   top        : 0;
