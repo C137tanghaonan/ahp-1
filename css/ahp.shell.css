@@ -34,6 +34,10 @@
   right      : 0;
   height     : 99px;
   background : #F0F0F0;
+  font-size  : 28px;
+  color      : #aaa;
+  text-indent: 20px;
+  line-height: 99px;
 }
   .ready.ahp-shell-main-nav-link {
     background : #E0E0E0;
