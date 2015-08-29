@@ -89,6 +89,8 @@ ahp.shell = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onStatechange = function ( event ) {
+    var content_html;
+    // nav
     stateMap.nav_ready.forEach(function (key) { 
       markReady( key ); 
     })
@@ -96,6 +98,22 @@ ahp.shell = (function () {
       markDone( key ); 
     })
     markCurrent( stateMap.nav_current );
+    
+    // content
+    switch(stateMap.nav_current) {
+      case 'name':
+        content_html = ahp.model.decision.get_name();
+        break;
+      case 'alternatives':
+        content_html = ahp.model.decision.get_alternatives().join('<br />');
+        break;
+      case 'criteria':
+        content_html = ahp.model.decision.get_criteria().join('<br />');
+        break;
+      default :
+        content_html = '';
+    } 
+    $( ".ahp-shell-main-content" ).html(content_html);
     
     return false;
   }
