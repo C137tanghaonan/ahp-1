@@ -50,9 +50,7 @@ ahp.shell = (function () {
     },
     stateMap  = {
       $container  : null,
-      nav_current : null, 
-      nav_ready   : [],
-      nav_done    : []
+      nav_current : null
     },
     
     markReady, markDone, markCurrent, 
@@ -89,14 +87,17 @@ ahp.shell = (function () {
 
   //------------------- BEGIN EVENT HANDLERS -------------------
   onStatechange = function ( event ) {
-    var content_html;
+    var keys = ['name', 'alternatives', 'criteria', 'compare-criteria', 'compare-alternatives', 'result'],
+      content_html; 
     // nav
-    stateMap.nav_ready.forEach(function (key) { 
-      markReady( key ); 
-    })
-    stateMap.nav_done.forEach(function (key) { 
-      markDone( key ); 
-    })
+    keys.forEach(function (key) { 
+      if (ahp.model.decision.ready( key )) {  
+        markReady( key );
+      }
+      if (ahp.model.decision.done( key )) {  
+        markDone( key );
+      }      
+    });
     markCurrent( stateMap.nav_current );
     
     // content
@@ -133,9 +134,7 @@ ahp.shell = (function () {
       return false;
     });
     
-    stateMap.nav_ready = ["name", "result"];  
-    stateMap.nav_done = ["criteria"];       // test
-    stateMap.nav_current = "alternatives";  // test 
+    stateMap.nav_current = 'name';
 
     $(window)
       .bind( 'statechange', onStatechange )
