@@ -103,7 +103,8 @@ ahp.shell = (function () {
     // content
     switch(stateMap.nav_current) {
       case 'name':
-        content_html = ahp.model.decision.get_name();
+        content_html = '<input type="text" value="'+ ahp.model.decision.get_name() +'"/>';
+        content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
         break;
       case 'alternatives':
         content_html = ahp.model.decision.get_alternatives().join('<br />');
@@ -115,6 +116,11 @@ ahp.shell = (function () {
         content_html = '';
     } 
     $( ".ahp-shell-main-content" ).html(content_html);
+    
+    $( ".ahp-shell-main-content-submit" ).click(function() {
+      ahp.model.decision.set_name($( ".ahp-shell-main-content input" ).val());
+      return false;
+    });
     
     return false;
   }

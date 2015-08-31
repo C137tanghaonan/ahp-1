@@ -75,10 +75,37 @@
   top        : 500px;
 }
 .ahp-shell-main-content {
-  left       : 400px;
-  right      : 0;
-  background : #F8F8F8;
+  left         : 400px;
+  right        : 0;
+  background   : #F8F8F8;
+  padding-top  : 20px;
+  padding-left : 40px;
+  font-size    : 22px;
+  line-height  : 200%;
 }
+.ahp-shell-main-content  input[type=text] {
+  float         : left;
+  width         : 300px;
+  height        : 50px;
+  margin-top    : 20px;
+  border-top    : 0;
+  border-left   : 0;
+  border-right  : 0;
+  border-bottom : thin solid #000;
+  background    : #F8F8F8;
+  font-size     : 20px;
+}
+  .ahp-shell-main-content  input[type=text]:focus {
+    background   : #fff;
+  }
+.ahp-shell-main-content-submit {
+  float       : left;
+  margin-top  : 20px;
+  margin-left : 20px;
+  height      : 50px;
+  width       : 70px;
+
+}  
 .ahp-shell-foot {
   bottom     : 0;
   left       : 0;

@@ -37,12 +37,14 @@ ahp.model = (function () {
  
 
   decision = (function () {
-    var get_name, 
+    var get_name, set_name,
         get_alternatives, add_alternative,
         get_criteria, add_criterion, 
         ready, done;
     
     get_name = function () { return stateMap.name; };
+    set_name = function ( item ) { stateMap.name = item };
+    
     get_alternatives = function () { return stateMap.alternatives; };
     get_criteria     = function () { return stateMap.criteria; };
     add_alternative  = function ( item ) { stateMap.alternatives.push( item ); };
@@ -100,6 +102,7 @@ ahp.model = (function () {
     
     return {
       get_name         : get_name,
+      set_name         : set_name,
       get_alternatives : get_alternatives,
       get_criteria     : get_criteria,
       add_alternative  : add_alternative,
