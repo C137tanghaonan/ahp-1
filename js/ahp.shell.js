@@ -50,7 +50,8 @@ ahp.shell = (function () {
     },
     stateMap  = {
       $container  : null,
-      nav_current : null
+      nav_current : null,
+      editing: false
     },
     
     markReady, markDone, markCurrent, 
@@ -103,8 +104,13 @@ ahp.shell = (function () {
     // content
     switch(stateMap.nav_current) {
       case 'name':
-        content_html = '<input type="text" value="'+ ahp.model.decision.get_name() +'"/>';
-        content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+        if (! stateMap.editing) {
+          content_html =  '<input type="text" value="'+ ahp.model.decision.get_name() +'" class="edit"/>';
+          content_html += '<input type="button" value="Edit" class="ahp-shell-main-content-submit edit"/>';
+        } else {
+          content_html =  '<input type="text" value="'+ ahp.model.decision.get_name() +'" class="update"/>';
+          content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit update"/>';
+        }        
         break;
       case 'alternatives':
         content_html = ahp.model.decision.get_alternatives().join('<br />');
@@ -118,7 +124,11 @@ ahp.shell = (function () {
     $( ".ahp-shell-main-content" ).html(content_html);
     
     $( ".ahp-shell-main-content-submit" ).click(function() {
-      ahp.model.decision.set_name($( ".ahp-shell-main-content input" ).val());
+      if ($(this).hasClass("update")) {
+        ahp.model.decision.set_name($( ".ahp-shell-main-content input" ).val());
+      }
+      stateMap.editing =  ! stateMap.editing;        
+      $(window).trigger( 'statechange' );
       return false;
     });
     
@@ -134,7 +144,8 @@ ahp.shell = (function () {
     
     $( ".ahp-shell-main-nav-link" ).click(function() {
       if ($(this).hasClass("ready")) {
-        stateMap.nav_current = navKey(this.id);     
+        stateMap.nav_current = navKey(this.id); 
+        stateMap.editing = false;        
         $(window).trigger( 'statechange' );
       }
       return false;
