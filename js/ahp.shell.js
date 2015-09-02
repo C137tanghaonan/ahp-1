@@ -104,13 +104,14 @@ ahp.shell = (function () {
     // content
     switch(stateMap.nav_current) {
       case 'name':
-        if (! stateMap.editing) {
-          content_html =  '<input type="text" value="'+ ahp.model.decision.get_name() +'" class="edit"/>';
-          content_html += '<input type="button" value="Edit" class="ahp-shell-main-content-submit edit"/>';
-        } else {
-          content_html =  '<input type="text" value="'+ ahp.model.decision.get_name() +'" class="update"/>';
-          content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit update"/>';
-        }        
+        content_html = '<div class="edit">';
+        content_html += '<input type="text" value="'+ ahp.model.decision.get_name() +'"/>';
+        content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+        content_html += '</div>';
+        content_html += '<div class="view">';
+        content_html += '<label>'+ ahp.model.decision.get_name() +'</label>';
+        content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
+        content_html += '</div>';
         break;
       case 'alternatives':
         content_html = ahp.model.decision.get_alternatives().join('<br />');
@@ -123,9 +124,17 @@ ahp.shell = (function () {
     } 
     $( ".ahp-shell-main-content" ).html(content_html);
     
+    if (stateMap.editing) { 
+      $(".edit").show();
+      $(".view").hide();
+    } else {
+      $(".view").show();
+      $(".edit").hide();
+    }  
+    
     $( ".ahp-shell-main-content-submit" ).click(function() {
-      if ($(this).hasClass("update")) {
-        ahp.model.decision.set_name($( ".ahp-shell-main-content input" ).val());
+      if ($(this).parent().hasClass("edit")) {
+        ahp.model.decision.set_name($( ".ahp-shell-main-content input[type=text]" ).val());
       }
       stateMap.editing =  ! stateMap.editing;        
       $(window).trigger( 'statechange' );

@@ -39,16 +39,16 @@
   text-indent: 20px;
   line-height: 99px;
 }
-  .ready.ahp-shell-main-nav-link {
-    background : #E0E0E0;
-    cursor     : pointer;
+.ahp-shell-main-nav-link.ready {
+  background : #E0E0E0;
+  cursor     : pointer;
+}
+ .ahp-shell-main-nav-link.ready:hover {
+    background : #C0C0C0;
   }
-    .ready.ahp-shell-main-nav-link:hover {
-      background : #C0C0C0;
-    }
-  .current.ahp-shell-main-nav-link {
-    background : #C8C8C8;
-  }
+.ahp-shell-main-nav-link.current {
+  background : #C8C8C8;
+}
 .ahp-shell-main-nav-link-done {
   background-image: url('../img/check.png');
   height     : 99px;
@@ -83,7 +83,7 @@
   font-size    : 22px;
   line-height  : 200%;
 }
-.ahp-shell-main-content  input[type=text].update {
+.ahp-shell-main-content  input[type=text] {
   float         : left;
   width         : 300px;
   height        : 50px;
@@ -96,19 +96,15 @@
   background    : #fff;
   font          : 22px Lucida Handwriting, Lucida Sans Unicode, Lucida Sans, Geneva, Verdana,sans-serif;
 }
-  .ahp-shell-main-content  input[type=text].update:focus {
+  .ahp-shell-main-content  input[type=text]:focus {
     background   : #fff;
   }
-.ahp-shell-main-content  input[type=text].edit {
+.ahp-shell-main-content  label{
   float          : left;
   width          : 300px;
   height         : 50px;
   margin-top     : 20px;
   padding-top    : 10px;
-  border         : 0;
-  background     : #F8F8F8;
-  font-size      : 22px;
-  pointer-events : none;
 }  
 .ahp-shell-main-content-submit {
   float       : left;
@@ -117,10 +113,10 @@
   height      : 50px;
   width       : 70px;
 }  
-.ahp-shell-main-content-submit.edit {
+.view .ahp-shell-main-content-submit {
   background    : #efdf88;
 }  
-.ahp-shell-main-content-submit.update {
+.edit .ahp-shell-main-content-submit {
   background    : #00dd00;
 }  
 .ahp-shell-foot {
