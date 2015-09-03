@@ -51,7 +51,7 @@ ahp.shell = (function () {
     stateMap  = {
       $container  : null,
       nav_current : null,
-      editing: false
+      editing: null
     },
     
     markReady, markDone, markCurrent, 
@@ -89,7 +89,8 @@ ahp.shell = (function () {
   //------------------- BEGIN EVENT HANDLERS -------------------
   onStatechange = function ( event ) {
     var keys = ['name', 'alternatives', 'criteria', 'compare-criteria', 'compare-alternatives', 'result'],
-      content_html; 
+      content_html = '',
+      item, i, div_v, div_e; 
     // nav
     keys.forEach(function (key) { 
       if (ahp.model.decision.ready( key )) {  
@@ -104,17 +105,46 @@ ahp.shell = (function () {
     // content
     switch(stateMap.nav_current) {
       case 'name':
-        content_html = '<div class="edit">';
-        content_html += '<input type="text" value="'+ ahp.model.decision.get_name() +'"/>';
+        item = ahp.model.decision.get_name();
+        content_html += '<div class="edit" id="e0">';
+        content_html += '<input type="text" value="'+ item +'"/>';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
         content_html += '</div>';
-        content_html += '<div class="view">';
-        content_html += '<label>'+ ahp.model.decision.get_name() +'</label>';
+        content_html += '<div class="view" id="v0">';
+        content_html += '<label>'+ item +'</label>';
         content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
         content_html += '</div>';
+        $( ".ahp-shell-main-content" ).html(content_html);
+        if (stateMap.editing != null) { 
+          $(".view").hide();
+        } else {
+          $(".edit").hide();
+        }  
         break;
       case 'alternatives':
-        content_html = ahp.model.decision.get_alternatives().join('<br />');
+        ahp.model.decision.get_alternatives().forEach(function (item, i) {
+          div_e = 'e' + i;
+          div_v = 'v' + i;
+          content_html += '<div class="edit" id="'+ div_e +'">';
+          content_html += '<input type="text" value="'+ item +'"/>';
+          content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+          content_html += '</div>';
+          content_html += '<div class="view" id="'+ div_v +'">';
+          content_html += '<label>'+ item +'</label>';
+          content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
+          content_html += '</div><br/><br/>';
+          $( ".ahp-shell-main-content" ).html(content_html);
+        });
+        if (stateMap.editing != null) { 
+          div_v = "#"+stateMap.editing;
+          div_e = div_v.replace("v","e"); 
+          $(div_v).hide();
+          $(".edit").not(div_e).hide();
+          $(".view >.ahp-shell-main-content-submit").prop('disabled', true);
+        } else {
+          $(".view").show();
+          $(".edit").hide();
+        }
         break;
       case 'criteria':
         content_html = ahp.model.decision.get_criteria().join('<br />');
@@ -122,21 +152,17 @@ ahp.shell = (function () {
       default :
         content_html = '';
     } 
-    $( ".ahp-shell-main-content" ).html(content_html);
+
     
-    if (stateMap.editing) { 
-      $(".edit").show();
-      $(".view").hide();
-    } else {
-      $(".view").show();
-      $(".edit").hide();
-    }  
+
     
     $( ".ahp-shell-main-content-submit" ).click(function() {
       if ($(this).parent().hasClass("edit")) {
         ahp.model.decision.set_name($( ".ahp-shell-main-content input[type=text]" ).val());
-      }
-      stateMap.editing =  ! stateMap.editing;        
+        stateMap.editing = null;
+      } else {
+        stateMap.editing = this.parentNode.id;
+      }      
       $(window).trigger( 'statechange' );
       return false;
     });
@@ -154,7 +180,7 @@ ahp.shell = (function () {
     $( ".ahp-shell-main-nav-link" ).click(function() {
       if ($(this).hasClass("ready")) {
         stateMap.nav_current = navKey(this.id); 
-        stateMap.editing = false;        
+        stateMap.editing = null;        
         $(window).trigger( 'statechange' );
       }
       return false;

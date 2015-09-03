@@ -119,6 +119,9 @@
 .edit .ahp-shell-main-content-submit {
   background    : #00dd00;
 }  
+.ahp-shell-main-content-submit:disabled{
+  background    : #F8F8F8;
+}
 .ahp-shell-foot {
   bottom     : 0;
   left       : 0;
