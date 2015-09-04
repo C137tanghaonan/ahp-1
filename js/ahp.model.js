@@ -29,26 +29,39 @@ ahp.model = (function () {
   // Public methods:
   //   * get_name()
   //   * get_alternatives()
+  //   * set_alternative( item, i )
   //   * get_criteria()
-  //   * add_alternative( item )
-  //   * add_criterion( item )
+  //   * set_criterion( item, i )
   //   * ready( key )
   //   * done( key )
  
 
   decision = (function () {
     var get_name, set_name,
-        get_alternatives, add_alternative,
-        get_criteria, add_criterion, 
+        get_alternatives, set_alternative,
+        get_criteria, set_criterion, 
         ready, done;
     
     get_name = function () { return stateMap.name; };
     set_name = function ( item ) { stateMap.name = item };
     
     get_alternatives = function () { return stateMap.alternatives; };
-    get_criteria     = function () { return stateMap.criteria; };
-    add_alternative  = function ( item ) { stateMap.alternatives.push( item ); };
-    add_criterion    = function ( item ) { stateMap.criteria.push( item ); };
+    set_alternative  = function ( item, i ) { 
+      if (i < stateMap.alternatives.length) {
+        stateMap.alternatives[i] = item;
+      } else {
+        stateMap.alternatives.push( item ); 
+      }
+    };
+    
+    get_criteria  = function () { return stateMap.criteria; };
+    set_criterion = function ( item, i ) { 
+      if (i < stateMap.criteria.length) {
+        stateMap.criteria[i] = item;
+      } else {
+        stateMap.criteria.push( item ); 
+      }
+    };
     
     ready = function ( key ) {
       var out = false;
@@ -104,9 +117,9 @@ ahp.model = (function () {
       get_name         : get_name,
       set_name         : set_name,
       get_alternatives : get_alternatives,
+      set_alternative  : set_alternative,
       get_criteria     : get_criteria,
-      add_alternative  : add_alternative,
-      add_criterion    : add_criterion,
+      set_criterion    : set_criterion,
       ready            : ready,
       done             : done
     };

@@ -140,14 +140,36 @@ ahp.shell = (function () {
           div_e = div_v.replace("v","e"); 
           $(div_v).hide();
           $(".edit").not(div_e).hide();
-          $(".view >.ahp-shell-main-content-submit").prop('disabled', true);
+          $(".view .ahp-shell-main-content-submit").prop('disabled', true);
         } else {
           $(".view").show();
           $(".edit").hide();
         }
         break;
       case 'criteria':
-        content_html = ahp.model.decision.get_criteria().join('<br />');
+        ahp.model.decision.get_criteria().forEach(function (item, i) {
+          div_e = 'e' + i;
+          div_v = 'v' + i;
+          content_html += '<div class="edit" id="'+ div_e +'">';
+          content_html += '<input type="text" value="'+ item +'"/>';
+          content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+          content_html += '</div>';
+          content_html += '<div class="view" id="'+ div_v +'">';
+          content_html += '<label>'+ item +'</label>';
+          content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
+          content_html += '</div><br/><br/>';
+          $( ".ahp-shell-main-content" ).html(content_html);
+        });
+        if (stateMap.editing != null) { 
+          div_v = "#"+stateMap.editing;
+          div_e = div_v.replace("v","e"); 
+          $(div_v).hide();
+          $(".edit").not(div_e).hide();
+          $(".view .ahp-shell-main-content-submit").prop('disabled', true);
+        } else {
+          $(".view").show();
+          $(".edit").hide();
+        }
         break;
       default :
         content_html = '';
@@ -157,12 +179,26 @@ ahp.shell = (function () {
 
     
     $( ".ahp-shell-main-content-submit" ).click(function() {
-      if ($(this).parent().hasClass("edit")) {
-        ahp.model.decision.set_name($( ".ahp-shell-main-content input[type=text]" ).val());
-        stateMap.editing = null;
+      if ($(this).parent().hasClass("view")) {
+         stateMap.editing = this.parentNode.id;
       } else {
-        stateMap.editing = this.parentNode.id;
-      }      
+        div_v = "#"+stateMap.editing;
+        div_e = div_v.replace("v","e");
+        item = $(div_e +" input[type=text]" ).val();
+        i = stateMap.editing.substring(1,2);
+        switch(stateMap.nav_current) {
+          case 'name':
+            ahp.model.decision.set_name( item );
+            break;
+          case 'alternatives':
+            ahp.model.decision.set_alternative( item, i );
+            break;        
+          case 'criteria':
+            ahp.model.decision.set_criterion( item, i );
+            break;             
+        }    
+        stateMap.editing = null;
+      } 
       $(window).trigger( 'statechange' );
       return false;
     });
