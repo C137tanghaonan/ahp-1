@@ -146,7 +146,7 @@ ahp.shell = (function () {
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
         if (stateMap.editing != null) { 
-          div_v = "#"+stateMap.editing;
+          div_v = "#v"+stateMap.editing;
           div_e = div_v.replace("v","e"); 
           $(div_v).hide();
           $(".edit").not(div_e).hide();
@@ -181,7 +181,7 @@ ahp.shell = (function () {
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
         if (stateMap.editing != null) { 
-          div_v = "#"+stateMap.editing;
+          div_v = "#v"+stateMap.editing;
           div_e = div_v.replace("v","e"); 
           $(div_v).hide();
           $(".edit").not(div_e).hide();
@@ -200,21 +200,20 @@ ahp.shell = (function () {
     
     $( ".ahp-shell-main-content-submit" ).click(function() {
       if ($(this).parent().hasClass("view")) {
-         stateMap.editing = this.parentNode.id;
+         stateMap.editing = this.parentNode.id.substr(1);
       } else {
-        div_v = "#"+stateMap.editing;
+        div_v = "#v"+stateMap.editing;
         div_e = div_v.replace("v","e");
         item = $(div_e +" input[type=text]" ).val();
-        i = stateMap.editing.substring(1,2);
         switch(stateMap.nav_current) {
           case 'name':
             ahp.model.decision.set_name( item );
             break;
           case 'alternatives':
-            ahp.model.decision.set_alternative( item, i );
+            ahp.model.decision.set_alternative( item, stateMap.editing );
             break;        
           case 'criteria':
-            ahp.model.decision.set_criterion( item, i );
+            ahp.model.decision.set_criterion( item, stateMap.editing );
             break;             
         }    
         stateMap.editing = null;
