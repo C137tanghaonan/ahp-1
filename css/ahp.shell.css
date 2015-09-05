@@ -119,7 +119,7 @@
 .edit .ahp-shell-main-content-submit {
   background    : #00dd00;
 }  
-.add .ahp-shell-main-content-submit {
+.ahp-shell-main-content-submit.add {
   background    : #99CCFF;
 }  
 .ahp-shell-main-content-submit:disabled{
