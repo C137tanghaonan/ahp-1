@@ -130,6 +130,9 @@
 }  
 .ahp-shell-main-content-submit.add {
   background    : #99CCFF;
+}
+.ahp-shell-main-content-submit.delete {
+  background    : #ccc;
 }  
 .ahp-shell-main-content-submit:disabled{
   background    : #F8F8F8;

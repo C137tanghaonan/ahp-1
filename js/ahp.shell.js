@@ -130,6 +130,7 @@ ahp.shell = (function () {
           content_html += '<div class="edit" id="'+ div_e +'">';
           content_html += '<input type="text" value="'+ item +'"/>';
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+          content_html += '<input type="button" value="Delete" class="ahp-shell-main-content-submit delete"/>';
           content_html += '<label class="error_msg">should be a non-empty string</label>';
           content_html += '</div>';
           content_html += '<div class="view" id="'+ div_v +'">';
@@ -166,6 +167,7 @@ ahp.shell = (function () {
           content_html += '<div class="edit" id="'+ div_e +'">';
           content_html += '<input type="text" value="'+ item +'"/>';
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+          content_html += '<input type="button" value="Delete" class="ahp-shell-main-content-submit delete"/>';
           content_html += '<label class="error_msg">should be a non-empty string</label>';
           content_html += '</div>';
           content_html += '<div class="view" id="'+ div_v +'">';
@@ -205,10 +207,24 @@ ahp.shell = (function () {
     $( ".ahp-shell-main-content-submit" ).click(function() {
       if ($(this).parent().hasClass("view")) {
          stateMap.editing = this.parentNode.id.substr(1);
+      } else if ($(this).hasClass("delete")) {
+        if (! confirm("Are you sure?")) {
+           return false;
+        } else { 
+          switch(stateMap.nav_current) {         
+            case 'alternatives':
+              ahp.model.decision.set_alternative( null, stateMap.editing );
+              break;        
+            case 'criteria':
+              ahp.model.decision.set_criterion( null, stateMap.editing );
+              break;
+          }
+          stateMap.editing = null;          
+        }
       } else {
         div_v = "#v"+stateMap.editing;
         div_e = div_v.replace("v","e");
-        item = $(div_e +" input[type=text]" ).val();
+        item = $(div_e +" input[type=text]" ).val().trim();
         if (item == "") {
           $(".error_msg").show();
           return false;

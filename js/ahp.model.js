@@ -48,7 +48,11 @@ ahp.model = (function () {
     get_alternatives = function () { return stateMap.alternatives; };
     set_alternative  = function ( item, i ) { 
       if (i < stateMap.alternatives.length) {
-        stateMap.alternatives[i] = item;
+        if (item != null) {
+          stateMap.alternatives[i] = item;
+        } else {
+          stateMap.alternatives.splice(i, 1);
+        }
       } else {
         stateMap.alternatives.push( item ); 
       }
@@ -57,7 +61,11 @@ ahp.model = (function () {
     get_criteria  = function () { return stateMap.criteria; };
     set_criterion = function ( item, i ) { 
       if (i < stateMap.criteria.length) {
-        stateMap.criteria[i] = item;
+        if (item != null) {
+          stateMap.criteria[i] = item;
+        } else {
+          stateMap.criteria.splice(i, 1);
+        }
       } else {
         stateMap.criteria.push( item ); 
       }
