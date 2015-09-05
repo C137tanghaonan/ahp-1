@@ -110,7 +110,11 @@
   color          : red;
   font-size      : small;
   margin-left    : 25px;
+  display        : none;
 }  
+.view, .edit {
+  display : none;
+}
 .ahp-shell-main-content-submit {
   float       : left;
   margin-top  : 20px;

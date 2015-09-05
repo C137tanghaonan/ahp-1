@@ -116,12 +116,11 @@ ahp.shell = (function () {
         content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
-        $(".error_msg").hide();
         if ( item == '' ) { stateMap.editing = "0";}
         if (stateMap.editing != null) { 
-          $(".view").hide();
+          $(".edit").show();
         } else {
-          $(".edit").hide();
+          $(".view").show();
         }  
         break;
       case 'alternatives':
@@ -150,16 +149,14 @@ ahp.shell = (function () {
         content_html += '<input type="button" value="Add"   class="ahp-shell-main-content-submit add"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
-        $(".error_msg").hide();
         if (stateMap.editing != null) { 
           div_v = "#v"+stateMap.editing;
           div_e = div_v.replace("v","e"); 
-          $(div_v).hide();
-          $(".edit").not(div_e).hide();
+          $(".view").not(div_v).show();
+          $(div_e).show();
           $(".view .ahp-shell-main-content-submit").prop('disabled', true);
         } else {
           $(".view").show();
-          $(".edit").hide();
         }
         break;
       case 'criteria':
@@ -188,16 +185,14 @@ ahp.shell = (function () {
         content_html += '<input type="button" value="Add"   class="ahp-shell-main-content-submit add"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
-        $(".error_msg").hide();
         if (stateMap.editing != null) { 
           div_v = "#v"+stateMap.editing;
           div_e = div_v.replace("v","e"); 
-          $(div_v).hide();
-          $(".edit").not(div_e).hide();
+          $(".view").not(div_v).show();
+          $(div_e).show();
           $(".view .ahp-shell-main-content-submit").prop('disabled', true);
         } else {
           $(".view").show();
-          $(".edit").hide();
         }
         break;
       default :
