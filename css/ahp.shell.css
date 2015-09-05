@@ -122,6 +122,16 @@
 .ahp-shell-main-content-submit:disabled{
   background    : #F8F8F8;
 }
+.ahp-shell-main-content-compare table, tr, td{
+  border-collapse: collapse;
+}
+.ahp-shell-main-content-compare table tr td{
+  padding   : 0 50px 0 50px;
+}
+.ahp-shell-main-content-compare th{
+  padding     : 0 10px 0 10px;
+  font-weight : normal;
+}
 .ahp-shell-foot {
   bottom     : 0;
   left       : 0;
