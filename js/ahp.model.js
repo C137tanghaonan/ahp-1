@@ -16,7 +16,7 @@ ahp.model = (function () {
   var
     configMap = { },
     stateMap  = {
-      name         : 'Decision',
+      name         : '',
       alternatives : ['Alternative 1', 'Alternative 2'],
       criteria     : ['Criterion 1', 'Criterion 2', 'Criterion 3']
     },
@@ -92,7 +92,7 @@ ahp.model = (function () {
       var out = false;
       switch(key) {
         case 'name':
-          if (stateMap.name != null) { out = true };
+          if (stateMap.name != '') { out = true };
           break;
         case 'alternatives':
           if (stateMap.alternatives.length > 1) { out = true };

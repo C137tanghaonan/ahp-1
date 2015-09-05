@@ -109,12 +109,15 @@ ahp.shell = (function () {
         content_html += '<div class="edit" id="e0">';
         content_html += '<input type="text" value="'+ item +'"/>';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+        content_html += '<label class="error_msg">should be a non-empty string</label>';
         content_html += '</div>';
         content_html += '<div class="view" id="v0">';
         content_html += '<label>'+ item +'</label>';
         content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
+        $(".error_msg").hide();
+        if ( item == '' ) { stateMap.editing = "0";}
         if (stateMap.editing != null) { 
           $(".view").hide();
         } else {
@@ -128,6 +131,7 @@ ahp.shell = (function () {
           content_html += '<div class="edit" id="'+ div_e +'">';
           content_html += '<input type="text" value="'+ item +'"/>';
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+          content_html += '<label class="error_msg">should be a non-empty string</label>';
           content_html += '</div>';
           content_html += '<div class="view" id="'+ div_v +'">';
           content_html += '<label>'+ item +'</label>';
@@ -139,12 +143,14 @@ ahp.shell = (function () {
         content_html += '<div class="edit" id="'+ div_e +'">';
         content_html += '<input type="text" value=""/>';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+        content_html += '<label class="error_msg">should be a non-empty string</label>';
         content_html += '</div>';
         content_html += '<div class="view" id="'+ div_v +'">';
         content_html += '<label></label>';
         content_html += '<input type="button" value="Add"   class="ahp-shell-main-content-submit add"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
+        $(".error_msg").hide();
         if (stateMap.editing != null) { 
           div_v = "#v"+stateMap.editing;
           div_e = div_v.replace("v","e"); 
@@ -163,6 +169,7 @@ ahp.shell = (function () {
           content_html += '<div class="edit" id="'+ div_e +'">';
           content_html += '<input type="text" value="'+ item +'"/>';
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+          content_html += '<label class="error_msg">should be a non-empty string</label>';
           content_html += '</div>';
           content_html += '<div class="view" id="'+ div_v +'">';
           content_html += '<label>'+ item +'</label>';
@@ -174,12 +181,14 @@ ahp.shell = (function () {
         content_html += '<div class="edit" id="'+ div_e +'">';
         content_html += '<input type="text" value=""/>';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+        content_html += '<label class="error_msg">should be a non-empty string</label>';
         content_html += '</div>';
         content_html += '<div class="view" id="'+ div_v +'">';
         content_html += '<label></label>';
         content_html += '<input type="button" value="Add"   class="ahp-shell-main-content-submit add"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
+        $(".error_msg").hide();
         if (stateMap.editing != null) { 
           div_v = "#v"+stateMap.editing;
           div_e = div_v.replace("v","e"); 
@@ -205,6 +214,10 @@ ahp.shell = (function () {
         div_v = "#v"+stateMap.editing;
         div_e = div_v.replace("v","e");
         item = $(div_e +" input[type=text]" ).val();
+        if (item == "") {
+          $(".error_msg").show();
+          return false;
+        }
         switch(stateMap.nav_current) {
           case 'name':
             ahp.model.decision.set_name( item );
