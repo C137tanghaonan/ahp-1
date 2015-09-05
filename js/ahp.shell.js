@@ -133,16 +133,29 @@ ahp.shell = (function () {
           content_html += '<label>'+ item +'</label>';
           content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
           content_html += '</div><br/><br/>';
-          $( ".ahp-shell-main-content" ).html(content_html);
-        });
+        }); 
+        div_e = 'e' + (i+1);
+        div_v = 'v' + (i+1);
+        content_html += '<div class="edit" id="'+ div_e +'">';
+        content_html += '<input type="text" value="'+ item +'"/>';
+        content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+        content_html += '</div>';
+        content_html += '<div class="add" id="'+ div_v +'">';
+        content_html += '<label></label>';
+        content_html += '<input type="button" value="Add"   class="ahp-shell-main-content-submit"/>';
+        content_html += '</div>';
+        
+        $( ".ahp-shell-main-content" ).html(content_html);
         if (stateMap.editing != null) { 
           div_v = "#"+stateMap.editing;
           div_e = div_v.replace("v","e"); 
           $(div_v).hide();
           $(".edit").not(div_e).hide();
           $(".view .ahp-shell-main-content-submit").prop('disabled', true);
+          $(".add .ahp-shell-main-content-submit").prop('disabled', true);
         } else {
           $(".view").show();
+          $(".add").show();
           $(".edit").hide();
         }
         break;
@@ -179,7 +192,7 @@ ahp.shell = (function () {
 
     
     $( ".ahp-shell-main-content-submit" ).click(function() {
-      if ($(this).parent().hasClass("view")) {
+      if ($(this).parent().hasClass("view") || $(this).parent().hasClass("add") ) {
          stateMap.editing = this.parentNode.id;
       } else {
         div_v = "#"+stateMap.editing;
