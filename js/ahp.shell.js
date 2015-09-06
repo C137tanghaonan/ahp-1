@@ -109,7 +109,7 @@ ahp.shell = (function () {
         content_html += '<div class="edit" id="e0">';
         content_html += '<input type="text" value="'+ item +'"/>';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
-        content_html += '<label class="error_msg">should be a non-empty string</label>';
+        content_html += '<label class="error_msg"></label>';
         content_html += '</div>';
         content_html += '<div class="view" id="v0">';
         content_html += '<label>'+ item +'</label>';
@@ -131,7 +131,7 @@ ahp.shell = (function () {
           content_html += '<input type="text" value="'+ item +'"/>';
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
           content_html += '<input type="button" value="Delete" class="ahp-shell-main-content-submit delete"/>';
-          content_html += '<label class="error_msg">should be a non-empty string</label>';
+          content_html += '<label class="error_msg"></label>';
           content_html += '</div>';
           content_html += '<div class="view" id="'+ div_v +'">';
           content_html += '<label>'+ item +'</label>';
@@ -143,7 +143,7 @@ ahp.shell = (function () {
         content_html += '<div class="edit" id="'+ div_e +'">';
         content_html += '<input type="text" value=""/>';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
-        content_html += '<label class="error_msg">should be a non-empty string</label>';
+        content_html += '<label class="error_msg"></label>';
         content_html += '</div>';
         content_html += '<div class="view" id="'+ div_v +'">';
         content_html += '<label></label>';
@@ -168,7 +168,7 @@ ahp.shell = (function () {
           content_html += '<input type="text" value="'+ item +'"/>';
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
           content_html += '<input type="button" value="Delete" class="ahp-shell-main-content-submit delete"/>';
-          content_html += '<label class="error_msg">should be a non-empty string</label>';
+          content_html += '<label class="error_msg"></label>';
           content_html += '</div>';
           content_html += '<div class="view" id="'+ div_v +'">';
           content_html += '<label>'+ item +'</label>';
@@ -180,7 +180,7 @@ ahp.shell = (function () {
         content_html += '<div class="edit" id="'+ div_e +'">';
         content_html += '<input type="text" value=""/>';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
-        content_html += '<label class="error_msg">should be a non-empty string</label>';
+        content_html += '<label class="error_msg"></label>';
         content_html += '</div>';
         content_html += '<div class="view" id="'+ div_v +'">';
         content_html += '<label></label>';
@@ -226,7 +226,9 @@ ahp.shell = (function () {
         div_e = div_v.replace("v","e");
         item = $(div_e +" input[type=text]" ).val().trim();
         if (item == "") {
-          $(".error_msg").show();
+          // better yet $(div_e +" .error_msg")
+          $(".error_msg").text("should be a non-empty string");
+          $(".error_msg").show(); 
           return false;
         }
         switch(stateMap.nav_current) {
@@ -234,9 +236,21 @@ ahp.shell = (function () {
             ahp.model.decision.set_name( item );
             break;
           case 'alternatives':
+            if (ahp.model.decision.get_alternatives().indexOf(item) > -1)
+            {
+              $(".error_msg").text("already exists");
+              $(".error_msg").show(); 
+              return false;
+            }
             ahp.model.decision.set_alternative( item, stateMap.editing );
             break;        
           case 'criteria':
+            if (ahp.model.decision.get_criteria().indexOf(item) > -1)
+            {
+              $(".error_msg").text("already exists");
+              $(".error_msg").show(); 
+              return false;
+            }
             ahp.model.decision.set_criterion( item, stateMap.editing );
             break;             
         }    
