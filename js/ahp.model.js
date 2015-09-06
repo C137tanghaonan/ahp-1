@@ -16,9 +16,9 @@ ahp.model = (function () {
   var
     configMap = { },
     stateMap  = {
-      name         : '',
-      alternatives : [],
-      criteria     : []
+      name         : 'Decision',
+      alternatives : ['Alternative 1', 'Alternative 2'],
+      criteria     : ['Criterion 1', 'Criterion 2', 'Criterion 3']
     },
 
     decision, initModule;

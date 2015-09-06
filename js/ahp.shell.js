@@ -66,6 +66,21 @@ ahp.shell = (function () {
   navKey = function (fullname) {
     return fullname.replace("ahp-shell-main-nav-", "");
   }
+  // input: len (array length)
+  // output: a set of labels for pairwise comparisons 
+  // 1 -> empty
+  // 2 -> 0_1
+  // 3 -> 0_1,0_2,1_2
+  // 4 -> 0_1,0_2,0_3,1_2,1_3,2_3   
+  screen_labels = function ( len ) {
+    var out = [], i, j;
+    for (i = 0; i < len; i++) {
+      for (j = i + 1; j < len; j++) {
+        out.push( i + "_" + j );
+      }
+    }
+    return out;
+  }
   //--------------------- END UTILITY METHODS ------------------
 
   //--------------------- BEGIN DOM METHODS --------------------
@@ -197,11 +212,18 @@ ahp.shell = (function () {
           $(".view").show();
         }
         break;
-      default :
-        content_html = '';
+      case 'compare-criteria':
+        content_html += '<ul>';
+        (screen_labels(ahp.model.decision.get_criteria().length)).forEach(function (item, i) {
+          content_html += '<li>' + item + '</li>';
+        });
+        content_html += '</ul>';
+        $( ".ahp-shell-main-content" ).html(content_html);
+        break;
+      case 'compare-alternatives':
+        $( ".ahp-shell-main-content" ).html(content_html);
     } 
 
-    
 
     
     $( ".ahp-shell-main-content-submit" ).click(function() {
