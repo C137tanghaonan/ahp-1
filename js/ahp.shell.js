@@ -50,8 +50,8 @@ ahp.shell = (function () {
     },
     stateMap  = {
       $container  : null,
-      nav_current : null,
-      editing: null
+      current_nav : null,
+      current_item: null
     },
     
     markReady, markDone, markCurrent, 
@@ -115,10 +115,10 @@ ahp.shell = (function () {
         markDone( key );
       }      
     });
-    markCurrent( stateMap.nav_current );
+    markCurrent( stateMap.current_nav );
     
     // content
-    switch(stateMap.nav_current) {
+    switch(stateMap.current_nav) {
       case 'name':
         item = ahp.model.decision.get_name();
         content_html += '<div class="edit" id="e0">';
@@ -131,8 +131,8 @@ ahp.shell = (function () {
         content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
-        if ( item == '' ) { stateMap.editing = "0";}
-        if (stateMap.editing != null) { 
+        if ( item == '' ) { stateMap.current_item = "0";}
+        if (stateMap.current_item != null) { 
           $(".edit").show();
         } else {
           $(".view").show();
@@ -165,8 +165,8 @@ ahp.shell = (function () {
         content_html += '<input type="button" value="Add"   class="ahp-shell-main-content-submit add"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
-        if (stateMap.editing != null) { 
-          div_v = "#v"+stateMap.editing;
+        if (stateMap.current_item != null) { 
+          div_v = "#v"+stateMap.current_item;
           div_e = div_v.replace("v","e"); 
           $(".view").not(div_v).show();
           $(div_e).show();
@@ -202,8 +202,8 @@ ahp.shell = (function () {
         content_html += '<input type="button" value="Add"   class="ahp-shell-main-content-submit add"/>';
         content_html += '</div>';
         $( ".ahp-shell-main-content" ).html(content_html);
-        if (stateMap.editing != null) { 
-          div_v = "#v"+stateMap.editing;
+        if (stateMap.current_item != null) { 
+          div_v = "#v"+stateMap.current_item;
           div_e = div_v.replace("v","e"); 
           $(".view").not(div_v).show();
           $(div_e).show();
@@ -228,23 +228,23 @@ ahp.shell = (function () {
     
     $( ".ahp-shell-main-content-submit" ).click(function() {
       if ($(this).parent().hasClass("view")) {
-         stateMap.editing = this.parentNode.id.substr(1);
+         stateMap.current_item = this.parentNode.id.substr(1);
       } else if ($(this).hasClass("delete")) {
         if (! confirm("Are you sure?")) {
            return false;
         } else { 
-          switch(stateMap.nav_current) {         
+          switch(stateMap.current_nav) {         
             case 'alternatives':
-              ahp.model.decision.set_alternative( null, stateMap.editing );
+              ahp.model.decision.set_alternative( null, stateMap.current_item );
               break;        
             case 'criteria':
-              ahp.model.decision.set_criterion( null, stateMap.editing );
+              ahp.model.decision.set_criterion( null, stateMap.current_item );
               break;
           }
-          stateMap.editing = null;          
+          stateMap.current_item = null;          
         }
       } else {
-        div_v = "#v"+stateMap.editing;
+        div_v = "#v"+stateMap.current_item;
         div_e = div_v.replace("v","e");
         item = $(div_e +" input[type=text]" ).val().trim();
         if (item == "") {
@@ -253,7 +253,7 @@ ahp.shell = (function () {
           $(".error_msg").show(); 
           return false;
         }
-        switch(stateMap.nav_current) {
+        switch(stateMap.current_nav) {
           case 'name':
             ahp.model.decision.set_name( item );
             break;
@@ -264,7 +264,7 @@ ahp.shell = (function () {
               $(".error_msg").show(); 
               return false;
             }
-            ahp.model.decision.set_alternative( item, stateMap.editing );
+            ahp.model.decision.set_alternative( item, stateMap.current_item );
             break;        
           case 'criteria':
             if (ahp.model.decision.get_criteria().indexOf(item) > -1)
@@ -273,10 +273,10 @@ ahp.shell = (function () {
               $(".error_msg").show(); 
               return false;
             }
-            ahp.model.decision.set_criterion( item, stateMap.editing );
+            ahp.model.decision.set_criterion( item, stateMap.current_item );
             break;             
         }    
-        stateMap.editing = null;
+        stateMap.current_item = null;
       } 
       $(window).trigger( 'statechange' );
       return false;
@@ -294,14 +294,14 @@ ahp.shell = (function () {
     
     $( ".ahp-shell-main-nav-link" ).click(function() {
       if ($(this).hasClass("ready")) {
-        stateMap.nav_current = navKey(this.id); 
-        stateMap.editing = null;        
+        stateMap.current_nav = navKey(this.id); 
+        stateMap.current_item = null;        
         $(window).trigger( 'statechange' );
       }
       return false;
     });
     
-    stateMap.nav_current = 'name';
+    stateMap.current_nav = 'name';
 
     $(window)
       .bind( 'statechange', onStatechange )
