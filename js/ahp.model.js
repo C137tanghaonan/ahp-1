@@ -16,9 +16,10 @@ ahp.model = (function () {
   var
     configMap = { },
     stateMap  = {
-      name         : 'Decision',
-      alternatives : ['Alternative 1', 'Alternative 2'],
-      criteria     : ['Criterion 1', 'Criterion 2', 'Criterion 3']
+      name             : 'Decision',
+      alternatives     : ['Alternative 1', 'Alternative 2'],
+      criteria         : ['Criterion 1', 'Criterion 2', 'Criterion 3'],
+      compare_criteria : {'0_0':'5', '0_1':'1/5', '0_2':'9', '1_2':'1/7'}
     },
 
     decision, initModule;
@@ -32,6 +33,8 @@ ahp.model = (function () {
   //   * set_alternative( item, i )
   //   * get_criteria()
   //   * set_criterion( item, i )
+  //   * get_compare_criteria()
+  //   * set_compare_criteria( item, i )
   //   * ready( key )
   //   * done( key )
  
@@ -40,6 +43,7 @@ ahp.model = (function () {
     var get_name, set_name,
         get_alternatives, set_alternative,
         get_criteria, set_criterion, 
+        get_compare_criteria, set_compare_criteria,
         ready, done;
     
     get_name = function () { return stateMap.name; };
@@ -69,6 +73,11 @@ ahp.model = (function () {
       } else {
         stateMap.criteria.push( item ); 
       }
+    };
+    
+    get_compare_criteria  = function () { return stateMap.compare_criteria; };
+    set_compare_criteria = function ( item, i ) {
+      stateMap.compare_criteria[i] = item;
     };
     
     ready = function ( key ) {
@@ -122,14 +131,16 @@ ahp.model = (function () {
     }
     
     return {
-      get_name         : get_name,
-      set_name         : set_name,
-      get_alternatives : get_alternatives,
-      set_alternative  : set_alternative,
-      get_criteria     : get_criteria,
-      set_criterion    : set_criterion,
-      ready            : ready,
-      done             : done
+      get_name             : get_name,
+      set_name             : set_name,
+      get_alternatives     : get_alternatives,
+      set_alternative      : set_alternative,
+      get_criteria         : get_criteria,
+      set_criterion        : set_criterion,
+      get_compare_criteria : get_compare_criteria,
+      set_compare_criteria : set_compare_criteria,
+      ready                : ready,
+      done                 : done
     };
   }());
   

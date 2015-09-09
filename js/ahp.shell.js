@@ -228,7 +228,11 @@ ahp.shell = (function () {
           content_html += '</tr><tr>';
           [9,7,5,3,1,3,5,7,9].forEach(function (item1, j) {
             (j <= 4) ? val = item1 : val = '1/'+ item1;
-            content_html += '<td><input type="radio" name="compare" value="'+ val +'"></td>';
+            if (ahp.model.decision.get_compare_criteria()[item] == val) {
+              content_html += '<td><input type="radio" name="c'+ item +'" value="'+ val +'" checked></td>';
+            } else {
+              content_html += '<td><input type="radio" name="c'+ item +'" value="'+ val +'"></td>';
+            }
           });
           content_html += '</tr><tr>';
           [9,7,5,3,1,3,5,7,9].forEach(function (item1) {
@@ -238,7 +242,7 @@ ahp.shell = (function () {
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
           content_html += '</div>';
           content_html += '<div class="view" id="'+ div_v +'">';
-          content_html += '<label>'+ ahp.model.decision.get_criteria()[i1] + ' vs ' + ahp.model.decision.get_criteria()[i2] +'</label>';
+          content_html += '<label>'+ ahp.model.decision.get_criteria()[i1] + ' vs ' + ahp.model.decision.get_criteria()[i2] +'('+ahp.model.decision.get_compare_criteria()[item] +  ') </label>';
           content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
           content_html += '</div><br/><br/><br/>';
         });
@@ -279,36 +283,42 @@ ahp.shell = (function () {
       } else {
         div_v = "#v"+stateMap.current_item;
         div_e = div_v.replace("v","e");
-        item = $(div_e +" input[type=text]" ).val().trim();
-        if (item == "") {
-          // better yet $(div_e +" .error_msg")
-          $(".error_msg").text("should be a non-empty string");
-          $(".error_msg").show(); 
-          return false;
+        
+        if (stateMap.current_nav == 'name' || stateMap.current_nav == 'criteria' || stateMap.current_nav == 'alternatives') {
+          item = $(div_e +" input[type=text]" ).val().trim();
+          if (item == "") {
+            // better yet $(div_e +" .error_msg")
+            $(".error_msg").text("should be a non-empty string");
+            $(".error_msg").show(); 
+            return false;
+          }
+          switch(stateMap.current_nav) {
+            case 'name':
+              ahp.model.decision.set_name( item );
+              break;
+            case 'alternatives':
+              if (ahp.model.decision.get_alternatives().indexOf(item) > -1)
+              {
+                $(".error_msg").text("already exists");
+                $(".error_msg").show(); 
+                return false;
+              }
+              ahp.model.decision.set_alternative( item, stateMap.current_item );
+              break;        
+            case 'criteria':
+              if (ahp.model.decision.get_criteria().indexOf(item) > -1)
+              {
+                $(".error_msg").text("already exists");
+                $(".error_msg").show(); 
+                return false;
+              }
+              ahp.model.decision.set_criterion( item, stateMap.current_item );
+              break;             
+          }    
+        } else if (stateMap.current_nav == 'compare-criteria') {
+          item = $(div_e +" input[type=radio]:checked" ).val();
+          ahp.model.decision.set_compare_criteria( item, stateMap.current_item );
         }
-        switch(stateMap.current_nav) {
-          case 'name':
-            ahp.model.decision.set_name( item );
-            break;
-          case 'alternatives':
-            if (ahp.model.decision.get_alternatives().indexOf(item) > -1)
-            {
-              $(".error_msg").text("already exists");
-              $(".error_msg").show(); 
-              return false;
-            }
-            ahp.model.decision.set_alternative( item, stateMap.current_item );
-            break;        
-          case 'criteria':
-            if (ahp.model.decision.get_criteria().indexOf(item) > -1)
-            {
-              $(".error_msg").text("already exists");
-              $(".error_msg").show(); 
-              return false;
-            }
-            ahp.model.decision.set_criterion( item, stateMap.current_item );
-            break;             
-        }    
         stateMap.current_item = null;
       } 
       $(window).trigger( 'statechange' );
