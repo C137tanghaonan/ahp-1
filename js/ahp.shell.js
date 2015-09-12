@@ -72,7 +72,7 @@ ahp.shell = (function () {
   // 2 -> 0_1
   // 3 -> 0_1,0_2,1_2
   // 4 -> 0_1,0_2,0_3,1_2,1_3,2_3   
-  screen_labels = function ( len ) {
+  getPairs = function ( len ) {
     var out = [], i, j;
     for (i = 0; i < len; i++) {
       for (j = i + 1; j < len; j++) {
@@ -215,7 +215,7 @@ ahp.shell = (function () {
         }
         break;
       case 'compare-criteria':
-        (screen_labels(ahp.model.decision.get_criteria().length)).forEach(function (item) {
+        (getPairs(ahp.model.decision.get_criteria().length)).forEach(function (item) {
           div_e = 'e' + item;
           div_v = 'v' + item;
           i1 = item.split('_')[0];
