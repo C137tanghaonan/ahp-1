@@ -20,7 +20,7 @@ ahp.model = (function () {
       alternatives         : ['Alternative 1', 'Alternative 2'],
       criteria             : ['Criterion 1', 'Criterion 2', 'Criterion 3'],
       compare_criteria     : {'0_1':'1/5', '0_2':'9', '1_2':'1/7'},
-      compare_alternatives : [{'0_1':'1/5'}, {'0_1':'7'}, {} ]
+      compare_alternatives : {'0_0_1':'1/5', '1_0_1':'7'}
     },
 
     decision, initModule;
@@ -36,8 +36,8 @@ ahp.model = (function () {
   //   * set_criterion( item, i )
   //   * get_compare_criteria()
   //   * set_compare_criteria( item, i )
-  //   * get_compare_alternatives( c )
-  //   * set_compare_alternatives( item, c, i )
+  //   * get_compare_alternatives()
+  //   * set_compare_alternatives( item, i )
   //   * ready( key )
   //   * done( key )
  
@@ -84,9 +84,9 @@ ahp.model = (function () {
       stateMap.compare_criteria[i] = item;
     };
     
-    get_compare_alternatives  = function ( c ) { return stateMap.compare_alternatives[c]; };
-    set_compare_alternatives = function ( item, c, i ) {
-      stateMap.compare_alternatives[c][i] = item;
+    get_compare_alternatives  = function () { return stateMap.compare_alternatives; };
+    set_compare_alternatives = function ( item, i ) {
+      stateMap.compare_alternatives[i] = item;
     };
     
     ready = function ( key ) {
@@ -132,10 +132,7 @@ ahp.model = (function () {
           break;  
         case 'compare-alternatives':
           var n = stateMap.alternatives.length;
-          out = (stateMap.compare_alternatives.length == stateMap.criteria.length);
-          stateMap.compare_alternatives.forEach(function (ar) { 
-            out = out && (Object.keys(ar).length == Math.round(n*(n - 1)/2)); 
-          });
+          out = (Object.keys(stateMap.compare_alternatives).length == stateMap.criteria.length * Math.round(n*(n - 1)/2) );
           break;    
         case 'result':
           out = done('compare-criteria') && done('compare-alternatives');
