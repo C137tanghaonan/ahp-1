@@ -258,7 +258,49 @@ ahp.shell = (function () {
         }
         break;
       case 'compare-alternatives':
+        ahp.model.decision.get_criteria().forEach(function (citem, i) {
+          (getPairs(ahp.model.decision.get_alternatives().length)).forEach(function (item) {
+            div_e = 'e' + i + '_' + item;
+            div_v = 'v' + i + '_' + item;
+            i1 = item.split('_')[0];
+            i2 = item.split('_')[1];
+            content_html += '<div class="edit" id="'+ div_e +'">';
+            content_html += '<table><tr>';
+            content_html += '<th colspan="4" align="left">'  + ahp.model.decision.get_alternatives()[i1] + '</th>';
+            content_html += '<td></td>'
+            content_html += '<th colspan="4" align="right">' + ahp.model.decision.get_alternatives()[i2] + '</th>';
+            content_html += '</tr><tr>';
+            [9,7,5,3,1,3,5,7,9].forEach(function (item1, j) {
+              (j <= 4) ? val = item1 : val = '1/'+ item1;
+              if (ahp.model.decision.get_compare_alternatives( i )[item] == val) {
+                content_html += '<td><input type="radio" name="c'+ item +'" value="'+ val +'" checked></td>';
+              } else {
+                content_html += '<td><input type="radio" name="c'+ item +'" value="'+ val +'"></td>';
+              }
+            });
+            content_html += '</tr><tr>';
+            [9,7,5,3,1,3,5,7,9].forEach(function (item1) {
+              content_html += '<td>'+ item1 +'</td>';
+            });
+            content_html += '</tr></table>' 
+            content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+            content_html += '</div>';
+            content_html += '<div class="view" id="'+ div_v +'">';
+            content_html += '<label>'+ citem + ': ' +ahp.model.decision.get_alternatives()[i1] + ' vs ' + ahp.model.decision.get_alternatives()[i2] +'('+ahp.model.decision.get_compare_alternatives( i )[item] + ') </label>';
+            content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
+            content_html += '</div><br/><br/><br/>';
+          });
+        });
         $( ".ahp-shell-main-content" ).html(content_html);
+        if (stateMap.current_item != null) { 
+          div_v = "#v"+stateMap.current_item;
+          div_e = div_v.replace("v","e"); 
+          $(".view").not(div_v).show();
+          $(div_e).show();
+          $(".view .ahp-shell-main-content-submit").prop('disabled', true);
+        } else {
+          $(".view").show();
+        }
     } 
 
 
@@ -318,6 +360,11 @@ ahp.shell = (function () {
         } else if (stateMap.current_nav == 'compare-criteria') {
           item = $(div_e +" input[type=radio]:checked" ).val();
           ahp.model.decision.set_compare_criteria( item, stateMap.current_item );
+        } else if (stateMap.current_nav == 'compare-alternatives') {
+          item = $(div_e +" input[type=radio]:checked" ).val();
+          var c = stateMap.current_item.split('_')[0]; 
+          var pair = stateMap.current_item.substr(c.length+1);
+          ahp.model.decision.set_compare_alternatives( item, c, pair );
         }
         stateMap.current_item = null;
       } 

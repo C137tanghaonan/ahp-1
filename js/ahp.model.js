@@ -20,7 +20,7 @@ ahp.model = (function () {
       alternatives         : ['Alternative 1', 'Alternative 2'],
       criteria             : ['Criterion 1', 'Criterion 2', 'Criterion 3'],
       compare_criteria     : {'0_1':'1/5', '0_2':'9', '1_2':'1/7'},
-      compare_alternatives : []
+      compare_alternatives : [{'0_1':'1/5'}, {'0_1':'7'}, {} ]
     },
 
     decision, initModule;
@@ -36,16 +36,19 @@ ahp.model = (function () {
   //   * set_criterion( item, i )
   //   * get_compare_criteria()
   //   * set_compare_criteria( item, i )
+  //   * get_compare_alternatives( c )
+  //   * set_compare_alternatives( item, c, i )
   //   * ready( key )
   //   * done( key )
  
 
   decision = (function () {
-    var get_name, set_name,
-        get_alternatives, set_alternative,
-        get_criteria, set_criterion, 
-        get_compare_criteria, set_compare_criteria,
-        ready, done;
+    var get_name,                 set_name,
+        get_alternatives,         set_alternative,
+        get_criteria,             set_criterion, 
+        get_compare_criteria,     set_compare_criteria,
+        get_compare_alternatives, set_compare_alternatives,
+        ready,                    done;
     
     get_name = function () { return stateMap.name; };
     set_name = function ( item ) { stateMap.name = item };
@@ -79,6 +82,11 @@ ahp.model = (function () {
     get_compare_criteria  = function () { return stateMap.compare_criteria; };
     set_compare_criteria = function ( item, i ) {
       stateMap.compare_criteria[i] = item;
+    };
+    
+    get_compare_alternatives  = function ( c ) { return stateMap.compare_alternatives[c]; };
+    set_compare_alternatives = function ( item, c, i ) {
+      stateMap.compare_alternatives[c][i] = item;
     };
     
     ready = function ( key ) {
@@ -137,16 +145,18 @@ ahp.model = (function () {
     }
     
     return {
-      get_name             : get_name,
-      set_name             : set_name,
-      get_alternatives     : get_alternatives,
-      set_alternative      : set_alternative,
-      get_criteria         : get_criteria,
-      set_criterion        : set_criterion,
-      get_compare_criteria : get_compare_criteria,
-      set_compare_criteria : set_compare_criteria,
-      ready                : ready,
-      done                 : done
+      get_name                 : get_name,
+      set_name                 : set_name,
+      get_alternatives         : get_alternatives,
+      set_alternative          : set_alternative,
+      get_criteria             : get_criteria,
+      set_criterion            : set_criterion,
+      get_compare_criteria     : get_compare_criteria,
+      set_compare_criteria     : set_compare_criteria,
+      get_compare_alternatives : get_compare_alternatives,
+      set_compare_alternatives : set_compare_alternatives,
+      ready                    : ready,
+      done                     : done
     };
   }());
   
