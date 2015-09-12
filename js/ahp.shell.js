@@ -339,7 +339,8 @@ ahp.shell = (function () {
               ahp.model.decision.set_name( item );
               break;
             case 'alternatives':
-              if (ahp.model.decision.get_alternatives().indexOf(item) > -1)
+              i = ahp.model.decision.get_alternatives().indexOf(item);
+              if (i > -1 && i != stateMap.current_item )
               {
                 $(".error_msg").text("already exists");
                 $(".error_msg").show(); 
@@ -348,7 +349,8 @@ ahp.shell = (function () {
               ahp.model.decision.set_alternative( item, stateMap.current_item );
               break;        
             case 'criteria':
-              if (ahp.model.decision.get_criteria().indexOf(item) > -1)
+              i = ahp.model.decision.get_criteria().indexOf(item);
+              if (i > -1 && i != stateMap.current_item )
               {
                 $(".error_msg").text("already exists");
                 $(".error_msg").show(); 
