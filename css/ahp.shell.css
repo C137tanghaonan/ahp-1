@@ -140,15 +140,28 @@
 .edit table {
   float: left;
 }
-.edit table, tr, td{
-  border-collapse: collapse;
-}
 .edit td{
   padding   : 0 45px 0 45px;
+  border-style : none;
 }
 .edit th{
   padding     : 0 10px 0 10px;
   font-weight : normal;
+  border-style : none;
+}
+.result {
+  border-collapse : collapse; 
+}
+.result  td, th{
+  border: 1px solid black;
+}
+.result td{
+  padding    : 0 45px 0 45px;
+  text-align : center;
+}
+.result th{
+  padding     : 0 10px 0 10px;
+  text-align  : center;
 }
 .ahp-shell-foot {
   bottom     : 0;

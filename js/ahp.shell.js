@@ -302,6 +302,27 @@ ahp.shell = (function () {
         } else {
           $(".view").show();
         }
+        break;
+      case 'result':
+        content_html += '<table class="result">';
+        content_html += '<tr>';
+        content_html += '<td>&nbsp;</td>';
+        ahp.model.decision.get_criteria().forEach(function (item, i) {
+          content_html += '<th>'+ item +'</th>';
+        });
+        content_html += '<th>Result</th>';
+        content_html += '</tr>';
+        ahp.model.decision.get_alternatives().forEach(function (item, i) {
+          content_html += '<tr>';
+          content_html += '<th>'+ item +'</th>';
+          ahp.model.decision.get_criteria().forEach(function (item1, j) {
+            content_html += '<td>'+ 0 +'</td>';
+          });
+          content_html += '<td>'+ 0 +'</td>';
+          content_html += '</tr>';
+        });
+        content_html += '</table>';
+        $( ".ahp-shell-main-content" ).html(content_html);
     } 
 
 
