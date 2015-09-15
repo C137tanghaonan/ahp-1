@@ -38,6 +38,9 @@ ahp.model = (function () {
   //   * set_compare_criteria( item, i )
   //   * get_compare_alternatives()
   //   * set_compare_alternatives( item, i )
+  //   * criteria_weights()
+  //   * alternative_weights( c )
+  //   * result_weights()
   //   * ready( key )
   //   * done( key )
  
@@ -48,6 +51,8 @@ ahp.model = (function () {
         get_criteria,             set_criterion, 
         get_compare_criteria,     set_compare_criteria,
         get_compare_alternatives, set_compare_alternatives,
+        criteria_weights,         alternative_weights, 
+        result_weights,           normalize,
         ready,                    done;
     
     get_name = function () { return stateMap.name; };
@@ -88,6 +93,47 @@ ahp.model = (function () {
     set_compare_alternatives = function ( item, i ) {
       stateMap.compare_alternatives[i] = item;
     };
+    
+    criteria_weights = function () {
+      var out = [];
+      stateMap.criteria.forEach(function (item, i) {
+        out.push(i);
+      });
+      return normalize( out );
+    };
+    
+    alternative_weights = function ( c ) {
+      var out = [];
+      stateMap.alternatives.forEach(function (item, i) {
+        out.push(i + 0.5678);
+      });
+      return normalize( out );
+    };
+    
+    result_weights = function () {
+      var out = [], sum;
+      stateMap.alternatives.forEach(function (aitem, i) {
+        sum = 0;
+        stateMap.criteria.forEach(function (citem, j) {
+          sum += criteria_weights()[j] * alternative_weights(j)[i];
+        });
+        out.push(sum);
+      });
+      return normalize( out );
+    }
+    
+    normalize = function ( ar ) {
+      var sum = 0;
+      ar.forEach(function (item) {
+        sum += item;
+      });
+      if (sum != 0) {
+        ar.forEach(function (item, i) {
+          ar[i] = item / sum;
+        });
+      }
+      return ar;
+    }
     
     ready = function ( key ) {
       var out = false;
@@ -152,6 +198,9 @@ ahp.model = (function () {
       set_compare_criteria     : set_compare_criteria,
       get_compare_alternatives : get_compare_alternatives,
       set_compare_alternatives : set_compare_alternatives,
+      criteria_weights         : criteria_weights,
+      alternative_weights      : alternative_weights,
+      result_weights           : result_weights,
       ready                    : ready,
       done                     : done
     };
