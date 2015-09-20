@@ -52,7 +52,9 @@ ahp.model = (function () {
         get_compare_criteria,     set_compare_criteria,
         get_compare_alternatives, set_compare_alternatives,
         criteria_weights,         alternative_weights, 
-        result_weights,           normalize,
+        result_weights,           
+        compare_criteria_matrix,  compare_alternatives_matrix,
+        eigenvector,              normalize,
         ready,                    done;
     
     get_name = function () { return stateMap.name; };
@@ -95,19 +97,11 @@ ahp.model = (function () {
     };
     
     criteria_weights = function () {
-      var out = [];
-      stateMap.criteria.forEach(function (item, i) {
-        out.push(i);
-      });
-      return normalize( out );
+      return normalize( eigenvector (compare_criteria_matrix()));
     };
     
     alternative_weights = function ( c ) {
-      var out = [];
-      stateMap.alternatives.forEach(function (item, i) {
-        out.push(i + 0.5678);
-      });
-      return normalize( out );
+      return normalize( eigenvector( compare_alternatives_matrix( c )));
     };
     
     result_weights = function () {
@@ -120,19 +114,6 @@ ahp.model = (function () {
         out.push(sum);
       });
       return normalize( out );
-    }
-    
-    normalize = function ( ar ) {
-      var sum = 0;
-      ar.forEach(function (item) {
-        sum += item;
-      });
-      if (sum != 0) {
-        ar.forEach(function (item, i) {
-          ar[i] = item / sum;
-        });
-      }
-      return ar;
     }
     
     ready = function ( key ) {
@@ -186,6 +167,69 @@ ahp.model = (function () {
       }        
       return(out);  
     }
+    
+// internal functions
+    compare_criteria_matrix = function () {
+      var len = stateMap.criteria.length, 
+          out = [], i, j;
+      for (i = 0; i < len; i++) {
+        out[i] = [];
+        for (j = 0; j < len; j++) {
+          if (stateMap.compare_criteria[i+'_'+j] != null){
+            out[i][j] = eval(stateMap.compare_criteria[i+'_'+j]);
+          } else if (i == j) {
+            out[i][j] = 1;
+          } else {
+            out[i][j] = 1/out[j][i];
+          }
+        }
+      }
+      return out;      
+    }
+    
+    compare_alternatives_matrix = function ( c ) {
+      var len = stateMap.alternatives.length, 
+          out = [], i, j;
+      for (i = 0; i < len; i++) {
+        out[i] = [];
+        for (j = 0; j < len; j++) {
+          if (stateMap.compare_alternatives[c+'_'+i+'_'+j] != null){
+            out[i][j] = eval(stateMap.compare_alternatives[c+'_'+i+'_'+j]);
+          } else if (i == j) {
+            out[i][j] = 1;
+          } else {
+            out[i][j] = 1/out[j][i];
+          }
+        }
+      }
+      return out;      
+    }
+
+    eigenvector = function ( ar ) {
+      var len = ar.length, out = [], i, j;
+      for (i = 0; i < len; i++) {
+        out[i] = 1;
+        for (j = 0; j < len; j++) {
+          out[i] *= ar[i][j];
+        }
+        out[i] = Math.pow(out[i], 1/len);
+      }
+      return out;
+    }
+
+    normalize = function ( ar ) {
+      var sum = 0;
+      ar.forEach(function (item) {
+        sum += item;
+      });
+      if (sum != 0) {
+        ar.forEach(function (item, i) {
+          ar[i] = item / sum;
+        });
+      }
+      return ar;
+    }
+// end internal functions        
     
     return {
       get_name                 : get_name,
