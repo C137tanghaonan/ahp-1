@@ -99,6 +99,11 @@ ahp.shell = (function () {
     $( navFullName(key) ).addClass( "current" );
     return false;
   }
+  unmarkAll = function ( ) {
+    $( ".ahp-shell-main-nav-link" ).removeClass( "ready" ); // not ready 
+    $( ".ahp-shell-main-nav-link" ).children().hide();      // not done
+    return false;
+  }
   //--------------------- END DOM METHODS ----------------------
 
   //------------------- BEGIN EVENT HANDLERS -------------------
@@ -109,6 +114,7 @@ ahp.shell = (function () {
       i, j, i1, i2, 
       div_v, div_e; 
     // nav
+    unmarkAll();
     keys.forEach(function (key) { 
       if (ahp.model.decision.ready( key )) {  
         markReady( key );
