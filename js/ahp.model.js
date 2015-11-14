@@ -62,10 +62,36 @@ ahp.model = (function () {
     
     get_alternatives = function () { return stateMap.alternatives; };
     set_alternative  = function ( item, i ) { 
+      var n1, n2;
       if (i < stateMap.alternatives.length) {
         if (item != null) {
           stateMap.alternatives[i] = item;
         } else {
+        alert(Object.keys(stateMap.compare_alternatives))
+          // modify compare_alternatives first: delete & shift
+          for (var c = 0; c < stateMap.criteria.length; c++) {
+            for (var i1 = 0; i1 < stateMap.alternatives.length; i1++) {
+              for (var i2 = i1+1; i2 < stateMap.alternatives.length; i2++) {
+                if (stateMap.compare_alternatives[c+'_'+i1+'_'+i2]) {
+                  if (i1 < i) {
+                    if (i2 == i) {
+                      delete stateMap.compare_alternatives[c+'_'+i1+'_'+i2];
+                    } else if (i2 > i) {
+                      stateMap.compare_alternatives[c+'_'+i1+'_'+(i2-1)] = stateMap.compare_alternatives[c+'_'+i1+'_'+i2];
+                      delete stateMap.compare_alternatives[c+'_'+i1+'_'+i2];
+                    }                
+                  } else if (i1 == i) {
+                    delete stateMap.compare_alternatives[c+'_'+i1+'_'+i2];
+                  } else if (i1 > i) {
+                    stateMap.compare_alternatives[c+'_'+(i1-1)+'_'+(i2-1)] = stateMap.compare_alternatives[c+'_'+i1+'_'+i2];
+                    delete stateMap.compare_alternatives[c+'_'+i1+'_'+i2];
+                  }   
+                }                
+              }
+            }  
+          }    
+          alert(Object.keys(stateMap.compare_alternatives))
+          // delete element
           stateMap.alternatives.splice(i, 1);
         }
       } else {
@@ -75,10 +101,32 @@ ahp.model = (function () {
     
     get_criteria  = function () { return stateMap.criteria; };
     set_criterion = function ( item, i ) { 
+      var n1, n2;
       if (i < stateMap.criteria.length) {
         if (item != null) {
           stateMap.criteria[i] = item;
         } else {
+          // modify compare_criteria first: delete & shift
+          for (var i1 = 0; i1 < stateMap.criteria.length; i1++) {
+            for (var i2 = i1+1; i2 < stateMap.criteria.length; i2++) {
+              if (stateMap.compare_criteria[i1+'_'+i2] != null) {
+                if (i1 < i) {
+                  if (i2 == i) {
+                    delete stateMap.compare_criteria[i1+'_'+i2];
+                  } else if (i2 > i) {
+                    stateMap.compare_criteria[i1+'_'+(i2-1)] = stateMap.compare_criteria[i1+'_'+i2];
+                    delete stateMap.compare_criteria[i1+'_'+i2];
+                  }                
+                } else if (i1 == i) {
+                  delete stateMap.compare_criteria[i1+'_'+i2];
+                } else if (i1 > i) {
+                  stateMap.compare_criteria[(i1-1)+'_'+(i2-1)] = stateMap.compare_criteria[i1+'_'+i2];
+                  delete stateMap.compare_criteria[i1+'_'+i2];
+                }  
+              }              
+            }
+          }            
+          // delete element
           stateMap.criteria.splice(i, 1);
         }
       } else {
