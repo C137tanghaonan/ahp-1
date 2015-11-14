@@ -16,11 +16,11 @@ ahp.model = (function () {
   var
     configMap = { },
     stateMap  = {
-      name                 : 'Decision',
-      alternatives         : ['Alternative 1', 'Alternative 2'],
-      criteria             : ['Criterion 1', 'Criterion 2', 'Criterion 3'],
-      compare_criteria     : {'0_1':'1/5', '0_2':'9', '1_2':'1/7'},
-      compare_alternatives : {'0_0_1':'1/5', '1_0_1':'7'}
+      name                 : '',
+      alternatives         : [],
+      criteria             : [],
+      compare_criteria     : {},
+      compare_alternatives : {}
     },
 
     decision, initModule;
@@ -200,11 +200,11 @@ ahp.model = (function () {
           break;
         case 'compare-criteria':
           var n = stateMap.criteria.length;
-          out = (Object.keys(stateMap.compare_criteria).length == Math.round(n*(n - 1)/2)); 
+          out = (done('criteria') && Object.keys(stateMap.compare_criteria).length == Math.round(n*(n - 1)/2)); 
           break;  
         case 'compare-alternatives':
           var n = stateMap.alternatives.length;
-          out = (Object.keys(stateMap.compare_alternatives).length == stateMap.criteria.length * Math.round(n*(n - 1)/2) );
+          out = (done('criteria') && done('alternatives') && Object.keys(stateMap.compare_alternatives).length == stateMap.criteria.length * Math.round(n*(n - 1)/2) );
           break;    
         case 'result':
           out = done('compare-criteria') && done('compare-alternatives');
