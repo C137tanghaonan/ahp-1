@@ -248,7 +248,7 @@ ahp.shell = (function () {
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
           content_html += '</div>';
           content_html += '<div class="view" id="'+ div_v +'">';
-          content_html += '<label>'+ ahp.model.decision.get_criteria()[i1] + ' vs ' + ahp.model.decision.get_criteria()[i2] +'('+ahp.model.decision.get_compare_criteria()[item] +  ') </label>';
+          content_html += '<label>'+ ahp.model.decision.get_criteria()[i1] + ' vs ' + ahp.model.decision.get_criteria()[i2] +' ('+ahp.model.decision.get_compare_criteria()[item] +  ') </label>';
           content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
           content_html += '</div><br/><br/><br/>';
         });
@@ -273,9 +273,12 @@ ahp.shell = (function () {
             i2 = item.split('_')[2];
             content_html += '<div class="edit" id="'+ div_e +'">';
             content_html += '<table><tr>';
+            content_html += '<th colspan="9"><b>'+ citem + '</b></th>';
+            content_html += '</tr><tr>';
             content_html += '<th colspan="4" align="left">'  + ahp.model.decision.get_alternatives()[i1] + '</th>';
             content_html += '<td></td>'
             content_html += '<th colspan="4" align="right">' + ahp.model.decision.get_alternatives()[i2] + '</th>';
+            content_html += '<td></td>'
             content_html += '</tr><tr>';
             [9,7,5,3,1,3,5,7,9].forEach(function (item1, j) {
               (j <= 4) ? val = item1 : val = '1/'+ item1;
@@ -285,17 +288,19 @@ ahp.shell = (function () {
                 content_html += '<td><input type="radio" name="'+ item +'" value="'+ val +'"></td>';
               }
             });
+            content_html += '<td><input type="button" value="Update" class="ahp-shell-main-content-submit"/></td>';
             content_html += '</tr><tr>';
             [9,7,5,3,1,3,5,7,9].forEach(function (item1) {
               content_html += '<td>'+ item1 +'</td>';
             });
+            content_html += '<td></td>'
             content_html += '</tr></table>' 
-            content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
+           
             content_html += '</div>';
             content_html += '<div class="view" id="'+ div_v +'">';
-            content_html += '<label>'+ citem + ': ' +ahp.model.decision.get_alternatives()[i1] + ' vs ' + ahp.model.decision.get_alternatives()[i2] +'('+ahp.model.decision.get_compare_alternatives()[item] + ') </label>';
+            content_html += '<label><b>'+ citem + ':</b> ' +ahp.model.decision.get_alternatives()[i1] + ' vs ' + ahp.model.decision.get_alternatives()[i2] +' ('+ahp.model.decision.get_compare_alternatives()[item] + ') </label>';
             content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
-            content_html += '</div><br/><br/><br/>';
+            content_html += '</div><br/><br/><br/><br/>';
           });
         });
         $( ".ahp-shell-main-content" ).html(content_html);
