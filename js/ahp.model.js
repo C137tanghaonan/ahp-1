@@ -62,7 +62,6 @@ ahp.model = (function () {
     
     get_alternatives = function () { return stateMap.alternatives; };
     set_alternative  = function ( item, i ) { 
-      var n1, n2;
       if (i < stateMap.alternatives.length) {
         if (item != null) {
           stateMap.alternatives[i] = item;
@@ -90,7 +89,6 @@ ahp.model = (function () {
               }
             }  
           }    
-          alert(Object.keys(stateMap.compare_alternatives))
           // delete element
           stateMap.alternatives.splice(i, 1);
         }
@@ -101,7 +99,6 @@ ahp.model = (function () {
     
     get_criteria  = function () { return stateMap.criteria; };
     set_criterion = function ( item, i ) { 
-      var n1, n2;
       if (i < stateMap.criteria.length) {
         if (item != null) {
           stateMap.criteria[i] = item;
