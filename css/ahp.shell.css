@@ -22,8 +22,9 @@
 }
 .ahp-shell-main-content,
 .ahp-shell-main-nav {
-  top    : 0;
-  bottom : 0;
+  top      : 0;
+  bottom   : 0;
+  overflow : auto;
 }
 .ahp-shell-main-nav {
   width      : 400px;
