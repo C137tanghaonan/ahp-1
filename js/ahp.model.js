@@ -62,12 +62,12 @@ ahp.model = (function () {
     
     get_alternatives = function () { return stateMap.alternatives; };
     set_alternative  = function ( item, i ) { 
-      if (i < stateMap.alternatives.length) {
-        if (item != null) {
+      if (i < stateMap.alternatives.length) { // existing element 
+        if (item != null) { // edit 
           stateMap.alternatives[i] = item;
-        } else {
-        alert(Object.keys(stateMap.compare_alternatives))
-          // modify compare_alternatives first: delete & shift
+        } else { // delete
+          stateMap.alternatives.splice(i, 1);
+          // modify compare_alternatives accordingly: delete related entries & down-shift the ones after
           for (var c = 0; c < stateMap.criteria.length; c++) {
             for (var i1 = 0; i1 < stateMap.alternatives.length; i1++) {
               for (var i2 = i1+1; i2 < stateMap.alternatives.length; i2++) {
@@ -89,21 +89,20 @@ ahp.model = (function () {
               }
             }  
           }    
-          // delete element
-          stateMap.alternatives.splice(i, 1);
         }
-      } else {
+      } else { // add new element 
         stateMap.alternatives.push( item ); 
       }
     };
     
     get_criteria  = function () { return stateMap.criteria; };
     set_criterion = function ( item, i ) { 
-      if (i < stateMap.criteria.length) {
-        if (item != null) {
+      if (i < stateMap.criteria.length) { // existing element 
+        if (item != null) { // edit 
           stateMap.criteria[i] = item;
-        } else {
-          // modify compare_criteria first: delete & shift
+        } else { // delete
+          stateMap.criteria.splice(i, 1);
+          // modify compare_criteria accordingly: delete related entries & down-shift the ones after
           for (var i1 = 0; i1 < stateMap.criteria.length; i1++) {
             for (var i2 = i1+1; i2 < stateMap.criteria.length; i2++) {
               if (stateMap.compare_criteria[i1+'_'+i2] != null) {
@@ -123,10 +122,8 @@ ahp.model = (function () {
               }              
             }
           }            
-          // delete element
-          stateMap.criteria.splice(i, 1);
         }
-      } else {
+      } else { // add new element
         stateMap.criteria.push( item ); 
       }
     };
