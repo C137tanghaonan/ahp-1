@@ -315,12 +315,10 @@ ahp.shell = (function () {
         }
         break;
       case 'result':
-        var criteria_weights =  ahp.model.decision.criteria_weights();
-        var alternative_weights = []
-        ahp.model.decision.get_criteria().forEach(function (item, i) {        
-          alternative_weights[i] = ahp.model.decision.alternative_weights( i );
-        });
-        var result_weights = ahp.model.decision.result_weights();
+        var result = ahp.model.decision.result();
+        var criteria_weights = result[0];
+        var alternative_weights = result[1];
+        var result_weights = result[2];
         
         content_html += '<table class="result">';
         content_html += '<tr>';
