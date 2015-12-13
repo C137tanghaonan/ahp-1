@@ -191,15 +191,31 @@ ahp.model = (function () {
     }
     
     result = function () {
-      var out = [], alternative_weights_matrix = [];
+      var out = [], result_out = [], alternative_weights_matrix = [], 
+          criteria_weights, result_weights, sum;
       
+      // compute criteria weights
+      criteria_weights = normalize( eigenvector (compare_criteria_matrix()));
+      
+      // compute alternative weights 
       stateMap.criteria.forEach(function (item, i) {        
-        alternative_weights_matrix[i] = alternative_weights( i );
+        alternative_weights_matrix[i] = normalize( eigenvector( compare_alternatives_matrix( i )));
       });
       
-      out.push(criteria_weights());
+      // compute result weights 
+      stateMap.alternatives.forEach(function (aitem, i) {
+        sum = 0;
+        stateMap.criteria.forEach(function (citem, j) {
+          sum += criteria_weights[j] * alternative_weights_matrix[j][i];
+        });
+        result_out.push(sum);
+      });
+      result_weights = normalize( result_out );
+      
+      // pack up 
+      out.push(criteria_weights);
       out.push(alternative_weights_matrix);
-      out.push(result_weights());
+      out.push(result_weights);
       return out;
     }
     
@@ -238,26 +254,6 @@ ahp.model = (function () {
         }
       }
       return out;      
-    }
-    
-    criteria_weights = function () {
-      return normalize( eigenvector (compare_criteria_matrix()));
-    };
-    
-    alternative_weights = function ( c ) {
-      return normalize( eigenvector( compare_alternatives_matrix( c )));
-    };
-    
-    result_weights = function () {
-      var out = [], sum;
-      stateMap.alternatives.forEach(function (aitem, i) {
-        sum = 0;
-        stateMap.criteria.forEach(function (citem, j) {
-          sum += criteria_weights()[j] * alternative_weights(j)[i];
-        });
-        out.push(sum);
-      });
-      return normalize( out );
     }
 
     eigenvector = function ( ar ) {
