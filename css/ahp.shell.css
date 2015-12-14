@@ -138,6 +138,13 @@
 .ahp-shell-main-content-submit:disabled{
   background    : #F8F8F8;
 }
+.ahp-shell-head-load-sample {
+  float        : right;
+  margin-top   : 20px;
+  margin-right : 20px;
+  height       : 50px;
+  width        : 90px;
+}  
 .edit table {
   float: left;
 }

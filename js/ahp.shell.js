@@ -16,7 +16,7 @@ ahp.shell = (function () {
   var
     configMap = {
       main_html : String()
-        + '<div class="ahp-shell-head"></div>'
+        + '<div class="ahp-shell-head"><input type="button" value="Load Sample" class="ahp-shell-head-load-sample" /></div>'
         + '<div class="ahp-shell-main">'
           + '<div class="ahp-shell-main-nav">'
             + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-name">'
@@ -413,6 +413,14 @@ ahp.shell = (function () {
         }
         stateMap.current_item = null;
       } 
+      $(window).trigger( 'statechange' );
+      return false;
+    });
+    
+    $( ".ahp-shell-head-load-sample" ).click(function() {
+      var json = '{"name":"Sample Decision", "alternatives" :["Alternative 1", "Alternative 2", "Alternative 3"], "criteria": ["Criterion 1", "Criterion 2"]}';
+      
+      ahp.model.decision.load(json);    
       $(window).trigger( 'statechange' );
       return false;
     });
