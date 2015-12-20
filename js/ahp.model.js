@@ -226,6 +226,8 @@ ahp.model = (function () {
       stateMap.name = obj["name"];
       stateMap.alternatives = obj["alternatives"];
       stateMap.criteria = obj["criteria"];
+      stateMap.compare_criteria = obj["compare_criteria"];
+      stateMap.compare_alternatives = obj["compare_alternatives"];
     }
     
 // internal functions

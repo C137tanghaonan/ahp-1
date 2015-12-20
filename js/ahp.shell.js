@@ -16,7 +16,10 @@ ahp.shell = (function () {
   var
     configMap = {
       main_html : String()
-        + '<div class="ahp-shell-head"><input type="button" value="Load Sample" class="ahp-shell-head-load-sample" /></div>'
+        + '<div class="ahp-shell-head">'
+          + '<input type="button" value="Load Sample" class="ahp-shell-head-load-sample" />'
+          + '<input id="load-file" type="file" />'
+        + '</div>'
         + '<div class="ahp-shell-main">'
           + '<div class="ahp-shell-main-nav">'
             + '<div class="ahp-shell-main-nav-link" id="ahp-shell-main-nav-name">'
@@ -418,11 +421,33 @@ ahp.shell = (function () {
     });
     
     $( ".ahp-shell-head-load-sample" ).click(function() {
-      var json = '{"name":"Sample Decision", "alternatives" :["Alternative 1", "Alternative 2", "Alternative 3"], "criteria": ["Criterion 1", "Criterion 2"]}';
+      var json = '{"name":"Sample Decision",'+
+                  '"alternatives" :["Alternative 1", "Alternative 2", "Alternative 3"],'+
+                  '"criteria": ["Criterion 1", "Criterion 2"],'+
+                  '"compare_criteria": {},'+ 
+                  '"compare_alternatives": {}'+ 
+                   '}';
       
       ahp.model.decision.load(json);    
       $(window).trigger( 'statechange' );
       return false;
+    });
+    
+    
+    $( "#load-file" ).change(function(e) {
+      var file = e.target.files[0]; 
+      var json;
+      if (!file) {
+        return;
+      }
+      var reader = new FileReader();
+      reader.onload = function(e) { 
+        json = e.target.result; 
+        ahp.model.decision.load(json);    
+        $(window).trigger( 'statechange' );
+        return false;
+      };
+      reader.readAsText(file); 
     });
     
     return false;
