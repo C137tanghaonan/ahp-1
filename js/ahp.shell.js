@@ -17,8 +17,8 @@ ahp.shell = (function () {
     configMap = {
       main_html : String()
         + '<div class="ahp-shell-head">'
-          + '<input type="button" value="Load Sample" class="ahp-shell-head-load-sample" />'
-          + '<input id="load-file" type="file" />'
+          + '<label class="ahp-shell-head-load-sample">Load Sample</label>'
+          + '<input id="load-file" type="file" class="ahp-shell-head-load-file"/><label for="load-file">Load File</label>'
         + '</div>'
         + '<div class="ahp-shell-main">'
           + '<div class="ahp-shell-main-nav">'
