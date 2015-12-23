@@ -421,46 +421,46 @@ ahp.shell = (function () {
       return false;
     });
     
-    $( ".ahp-shell-head-load-sample" ).click(function() {
-      var json_str = '{"name":"Sample Decision",'+
-                  '"alternatives" :["Alternative 1", "Alternative 2", "Alternative 3"],'+
-                  '"criteria": ["Criterion 1", "Criterion 2"],'+
-                  '"compare_criteria": {},'+ 
-                  '"compare_alternatives": {}'+ 
-                   '}';
-      
+    return false;
+  }
+  
+  onLoadSample = function() {
+    var json_str = '{"name":"Sample Decision",'+
+                '"alternatives" :["Alternative 1", "Alternative 2", "Alternative 3"],'+
+                '"criteria": ["Criterion 1", "Criterion 2"],'+
+                '"compare_criteria": {},'+ 
+                '"compare_alternatives": {}'+ 
+                 '}';
+    
+    ahp.model.decision.load_json(json_str);    
+    $(window).trigger( 'statechange' );
+    return false;
+  }
+  
+  onLoadFile = function(e) {
+    var file = e.target.files[0]; 
+    var json_str;
+    if (!file) {
+      return;
+    }
+    var reader = new FileReader();
+    reader.onload = function(e) { 
+      json_str = e.target.result; 
       ahp.model.decision.load_json(json_str);    
       $(window).trigger( 'statechange' );
       return false;
-    });
-    
-    
-    $( "#load-file" ).change(function(e) {
-      var file = e.target.files[0]; 
-      var json_str;
-      if (!file) {
-        return;
-      }
-      var reader = new FileReader();
-      reader.onload = function(e) { 
-        json_str = e.target.result; 
-        ahp.model.decision.load_json(json_str);    
-        $(window).trigger( 'statechange' );
-        return false;
-      };
-      reader.readAsText(file); 
-    });
-    
-    $( ".ahp-shell-head-save" ).click(function() {
-      var str = ahp.model.decision.get_json();
-      str += "\n\n------------------------------------------------------------------\n";
-      str += "Copy and paste the text above the line into a text file";
-      alert(str);
-      return false;
-    });
-    
-    return false;
+    };
+    reader.readAsText(file); 
   }
+  
+  onSave = function () {
+    var str = ahp.model.decision.get_json();
+    str += "\n\n------------------------------------------------------------------\n";
+    str += "Copy and paste the text above the line into a text file";
+    alert(str);
+    return false;
+  }  
+  
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -468,6 +468,10 @@ ahp.shell = (function () {
   initModule = function ( $container ) {
     stateMap.$container = $container;
     $container.html( configMap.main_html );
+    
+    $( ".ahp-shell-head-load-sample" ).click( onLoadSample );
+    $( "#load-file" ).change( onLoadFile );
+    $( ".ahp-shell-head-save" ).click( onSave );
     
     $( ".ahp-shell-main-nav-link" ).click(function() {
       if ($(this).hasClass("ready")) {
