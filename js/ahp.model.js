@@ -43,7 +43,8 @@ ahp.model = (function () {
   //   * result_weights()
   //   * ready( key )
   //   * done( key )
-  //   * load( json )
+  //   * load_json( str )
+  //   * get()
  
 
   decision = (function () {
@@ -57,7 +58,7 @@ ahp.model = (function () {
         compare_criteria_matrix,  compare_alternatives_matrix,
         eigenvector,              normalize,
         ready,                    done,
-        load;
+        load_json,                get_json;
     
     get_name = function () { return stateMap.name; };
     set_name = function ( item ) { stateMap.name = item };
@@ -221,13 +222,17 @@ ahp.model = (function () {
       return out;
     }
     
-    load = function ( json ) {
-      var obj = JSON.parse(json);
+    load_json = function ( str ) {
+      var obj = JSON.parse(str);
       stateMap.name = obj["name"];
       stateMap.alternatives = obj["alternatives"];
       stateMap.criteria = obj["criteria"];
       stateMap.compare_criteria = obj["compare_criteria"];
       stateMap.compare_alternatives = obj["compare_alternatives"];
+    }
+    
+    get_json = function() {
+      return (JSON.stringify(stateMap));
     }
     
 // internal functions
@@ -307,7 +312,8 @@ ahp.model = (function () {
       result                   : result,
       ready                    : ready,
       done                     : done,
-      load                     : load
+      load_json                : load_json,
+      get_json                 : get_json
     };
   }());
   

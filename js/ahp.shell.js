@@ -19,6 +19,7 @@ ahp.shell = (function () {
         + '<div class="ahp-shell-head">'
           + '<label class="ahp-shell-head-load-sample">Load Sample</label>'
           + '<input id="load-file" type="file" class="ahp-shell-head-load-file"/><label for="load-file">Load File</label>'
+          + '<label class="ahp-shell-head-save">Save</label>'
         + '</div>'
         + '<div class="ahp-shell-main">'
           + '<div class="ahp-shell-main-nav">'
@@ -421,14 +422,14 @@ ahp.shell = (function () {
     });
     
     $( ".ahp-shell-head-load-sample" ).click(function() {
-      var json = '{"name":"Sample Decision",'+
+      var json_str = '{"name":"Sample Decision",'+
                   '"alternatives" :["Alternative 1", "Alternative 2", "Alternative 3"],'+
                   '"criteria": ["Criterion 1", "Criterion 2"],'+
                   '"compare_criteria": {},'+ 
                   '"compare_alternatives": {}'+ 
                    '}';
       
-      ahp.model.decision.load(json);    
+      ahp.model.decision.load_json(json_str);    
       $(window).trigger( 'statechange' );
       return false;
     });
@@ -436,18 +437,26 @@ ahp.shell = (function () {
     
     $( "#load-file" ).change(function(e) {
       var file = e.target.files[0]; 
-      var json;
+      var json_str;
       if (!file) {
         return;
       }
       var reader = new FileReader();
       reader.onload = function(e) { 
-        json = e.target.result; 
-        ahp.model.decision.load(json);    
+        json_str = e.target.result; 
+        ahp.model.decision.load_json(json_str);    
         $(window).trigger( 'statechange' );
         return false;
       };
       reader.readAsText(file); 
+    });
+    
+    $( ".ahp-shell-head-save" ).click(function() {
+      var str = ahp.model.decision.get_json();
+      str += "\n\n------------------------------------------------------------------\n";
+      str += "Copy and paste the text above the line into a text file";
+      alert(str);
+      return false;
     });
     
     return false;
