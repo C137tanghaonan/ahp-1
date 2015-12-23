@@ -461,6 +461,15 @@ ahp.shell = (function () {
     return false;
   }  
   
+  onClickNav = function() {
+    if ($(this).hasClass("ready")) {
+      stateMap.current_nav = navKey(this.id); 
+      stateMap.current_item = null;        
+      $(window).trigger( 'statechange' );
+    }
+    return false;
+  }
+  
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -473,14 +482,7 @@ ahp.shell = (function () {
     $( "#load-file" ).change( onLoadFile );
     $( ".ahp-shell-head-save" ).click( onSave );
     
-    $( ".ahp-shell-main-nav-link" ).click(function() {
-      if ($(this).hasClass("ready")) {
-        stateMap.current_nav = navKey(this.id); 
-        stateMap.current_item = null;        
-        $(window).trigger( 'statechange' );
-      }
-      return false;
-    });
+    $( ".ahp-shell-main-nav-link" ).click( onClickNav);
     
     stateMap.current_nav = 'name';
 
