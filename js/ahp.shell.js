@@ -431,9 +431,6 @@ ahp.shell = (function () {
                 '"compare_criteria": {},'+ 
                 '"compare_alternatives": {}'+ 
                  '}';
-    if (! confirmOverwrite()) {
-      return false;
-    }   
     
     ahp.model.decision.load_json(json_str);    
     $(window).trigger( 'statechange' );
@@ -485,9 +482,8 @@ ahp.shell = (function () {
     stateMap.$container = $container;
     $container.html( configMap.main_html );
     
-    $( ".ahp-shell-head-load-sample" ).click( onLoadSample );
-    $( "#load-file" ).click( confirmOverwrite );
-    $( "#load-file" ).change( onLoadFile );
+    $( ".ahp-shell-head-load-sample" ).click( confirmOverwrite ).click( onLoadSample );
+    $( "#load-file" ).click( confirmOverwrite ).change( onLoadFile );
     $( ".ahp-shell-head-save" ).click( onSave );
     
     $( ".ahp-shell-main-nav-link" ).click( onClickNav);
