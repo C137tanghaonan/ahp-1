@@ -194,6 +194,9 @@
   padding     : 0 10px 0 10px;
   text-align  : center;
 }
+.result .noborder  {
+  border-style : none;
+}
 .ahp-shell-foot {
   bottom     : 0;
   left       : 0;

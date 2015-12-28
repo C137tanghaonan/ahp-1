@@ -346,17 +346,25 @@ ahp.shell = (function () {
         
         content_html += '<table class="result">';
         content_html += '<tr>';
-        content_html += '<td>&nbsp;</td>';
-        criteria_weights.forEach(function (item, i) {
-          content_html += '<td>'+ item.toFixed(2) +'</td>';
-        });
-        content_html += '<td>&nbsp;</td>';
-        content_html += '</tr>';
-        content_html += '<tr>';
-        content_html += '<td>&nbsp;</td>';
+        content_html += '<td class="noborder">&nbsp;</td>';
         ahp.model.decision.get_criteria().forEach(function (item, i) {
           content_html += '<th>'+ item +'</th>';
         });
+        content_html += '<td class="noborder" colspan="3">&nbsp;</td>';
+        content_html += '</tr><tr>';
+        content_html += '<td class="noborder">&nbsp;</td>';
+        criteria_weights.forEach(function (item, i) {
+          content_html += '<td>'+ item.toFixed(2) +'</td>';
+        });
+        content_html += '<td class="noborder" colspan="3">&nbsp;</td>';
+        content_html += '</tr><tr>';
+        content_html += '<td class="noborder" colspan="6">&nbsp;</td>';
+        content_html += '</tr><tr>';
+        content_html += '<td class="noborder">&nbsp;</td>';
+        ahp.model.decision.get_criteria().forEach(function (item, i) {
+          content_html += '<th>'+ item +'</th>';
+        });
+        content_html += '<td class="noborder" colspan="2">&nbsp;</td>';
         content_html += '<th>Result</th>';
         content_html += '</tr>';
         ahp.model.decision.get_alternatives().forEach(function (item, i) {
@@ -365,6 +373,8 @@ ahp.shell = (function () {
           ahp.model.decision.get_criteria().forEach(function (item1, j) {
             content_html += '<td>'+ alternative_weights[j][i].toFixed(2) +'</td>';
           });
+          content_html += '<td class="noborder">&nbsp;</td>';
+          content_html += '<th>'+ item +'</th>';
           content_html += '<td>'+ result_weights[i].toFixed(2) +'</td>';
           content_html += '</tr>';
         });
