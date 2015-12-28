@@ -147,7 +147,7 @@
   position: absolute;
   z-index: -1;
 }
-.ahp-shell-head-load-sample, .ahp-shell-head-load-file  + label, .ahp-shell-head-save  {
+.ahp-shell-head-clear, .ahp-shell-head-load-file  + label, .ahp-shell-head-save  {
   float        : right;
   margin-top   : 20px;
   margin-right : 10px;

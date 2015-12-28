@@ -17,7 +17,7 @@ ahp.shell = (function () {
     configMap = {
       main_html : String()
         + '<div class="ahp-shell-head">'
-          + '<label class="ahp-shell-head-load-sample">Load Sample</label>'
+          + '<label class="ahp-shell-head-clear">Clear Data</label>'
           + '<input id="load-file" type="file" class="ahp-shell-head-load-file"/><label for="load-file">Load File</label>'
           + '<label class="ahp-shell-head-save">Save</label>'
         + '</div>'
@@ -454,10 +454,10 @@ ahp.shell = (function () {
     return false;
   }
   
-  onLoadSample = function() {
-    var json_str = '{"name":"Sample Decision",'+
-                '"alternatives" :["Alternative 1", "Alternative 2", "Alternative 3"],'+
-                '"criteria": ["Criterion 1", "Criterion 2"],'+
+  onClear = function() {
+    var json_str = '{"name":"",'+
+                '"alternatives" :[],'+
+                '"criteria": [],'+
                 '"compare_criteria": {},'+ 
                 '"compare_alternatives": {}'+ 
                  '}';
@@ -512,7 +512,7 @@ ahp.shell = (function () {
     stateMap.$container = $container;
     $container.html( configMap.main_html );
     
-    $( ".ahp-shell-head-load-sample" ).click( confirmOverwrite ).click( onLoadSample );
+    $( ".ahp-shell-head-clear" ).click( confirmOverwrite ).click( onClear );
     $( "#load-file" ).click( confirmOverwrite ).change( onLoadFile );
     $( ".ahp-shell-head-save" ).click( onSave );
     
