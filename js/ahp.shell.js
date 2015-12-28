@@ -431,6 +431,9 @@ ahp.shell = (function () {
                 '"compare_criteria": {},'+ 
                 '"compare_alternatives": {}'+ 
                  '}';
+    if (! confirmOverwrite()) {
+      return false;
+    }   
     
     ahp.model.decision.load_json(json_str);    
     $(window).trigger( 'statechange' );
@@ -470,6 +473,10 @@ ahp.shell = (function () {
     return false;
   }
   
+  confirmOverwrite = function () {
+    return (ahp.model.decision.get_name() == '' || confirm("This will overwrite existing data. Are you sure?"));
+  }
+  
   //-------------------- END EVENT HANDLERS --------------------
 
   //------------------- BEGIN PUBLIC METHODS -------------------
@@ -479,6 +486,7 @@ ahp.shell = (function () {
     $container.html( configMap.main_html );
     
     $( ".ahp-shell-head-load-sample" ).click( onLoadSample );
+    $( "#load-file" ).click( confirmOverwrite );
     $( "#load-file" ).change( onLoadFile );
     $( ".ahp-shell-head-save" ).click( onSave );
     

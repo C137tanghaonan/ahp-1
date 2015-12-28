@@ -44,7 +44,7 @@ ahp.model = (function () {
   //   * ready( key )
   //   * done( key )
   //   * load_json( str )
-  //   * get()
+  //   * get_json()
  
 
   decision = (function () {
