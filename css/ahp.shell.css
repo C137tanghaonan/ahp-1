@@ -168,6 +168,17 @@
   font-weight : normal;
   border-style : none;
 }
+.view table {
+  float: left;
+}
+.view td{
+  padding   : 0 10px 0 10px;
+  border-style : none;
+}
+.view th{
+  padding   : 30px 10px 0 10px;
+  border-style : none;
+}
 .result {
   border-collapse : collapse; 
 }

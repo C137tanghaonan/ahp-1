@@ -251,9 +251,14 @@ ahp.shell = (function () {
           content_html += '</tr></table>' 
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
           content_html += '</div>';
+
           content_html += '<div class="view" id="'+ div_v +'">';
-          content_html += '<label>'+ ahp.model.decision.get_criteria()[i1] + ' vs ' + ahp.model.decision.get_criteria()[i2] +' ('+ahp.model.decision.get_compare_criteria()[item] +  ') </label>';
-          content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
+          content_html += '<table><tr>';
+          content_html += '<td align="left"><label>'  + ahp.model.decision.get_criteria()[i1] + '</label></td>';
+          content_html += '<th>vs</th>'
+          content_html += '<td align="right"><label>' + ahp.model.decision.get_criteria()[i2] + '</label></td>';
+          content_html += '<td><input type="button" value="Edit"   class="ahp-shell-main-content-submit"/></td>';
+          content_html += '</tr></table>'
           content_html += '</div><br/><br/><br/>';
         });
         $( ".ahp-shell-main-content" ).html(content_html);
@@ -299,11 +304,16 @@ ahp.shell = (function () {
             });
             content_html += '<td></td>'
             content_html += '</tr></table>' 
-           
             content_html += '</div>';
+
             content_html += '<div class="view" id="'+ div_v +'">';
-            content_html += '<label><b>'+ citem + ':</b> ' +ahp.model.decision.get_alternatives()[i1] + ' vs ' + ahp.model.decision.get_alternatives()[i2] +' ('+ahp.model.decision.get_compare_alternatives()[item] + ') </label>';
-            content_html += '<input type="button" value="Edit"   class="ahp-shell-main-content-submit"/>';
+            content_html += '<table><tr>';
+            content_html += '<th>'+ citem + ':</th>';
+            content_html += '<td align="left"><label>'  + ahp.model.decision.get_alternatives()[i1] + '</label></td>';
+            content_html += '<th>vs</th>'
+            content_html += '<td align="right"><label>' + ahp.model.decision.get_alternatives()[i2] + '</label></td>';
+            content_html += '<td><input type="button" value="Edit"   class="ahp-shell-main-content-submit"/></td>';
+            content_html += '</tr></table>' 
             content_html += '</div><br/><br/><br/><br/>';
           });
         });
@@ -355,8 +365,8 @@ ahp.shell = (function () {
 
     
     $( ".ahp-shell-main-content-submit" ).click(function() {
-      if ($(this).parent().hasClass("view")) {
-         stateMap.current_item = this.parentNode.id.substr(1);
+      if ($(this).closest("div").hasClass("view")) {
+        stateMap.current_item = this.closest("div").id.substr(1);
       } else if ($(this).hasClass("delete")) {
         if (! confirm("Are you sure?")) {
            return false;
