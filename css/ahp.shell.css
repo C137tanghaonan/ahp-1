@@ -177,6 +177,7 @@
 }
 .view th{
   padding   : 30px 10px 0 10px;
+  font-weight : normal;
   border-style : none;
 }
 .result {
