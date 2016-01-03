@@ -463,6 +463,7 @@ ahp.shell = (function () {
                  '}';
     
     ahp.model.decision.load_json(json_str);    
+    stateMap.current_nav = 'name';
     $(window).trigger( 'statechange' );
     return false;
   }
@@ -477,6 +478,7 @@ ahp.shell = (function () {
     reader.onload = function(e) { 
       json_str = e.target.result; 
       ahp.model.decision.load_json(json_str);    
+      stateMap.current_nav = 'name';
       $(window).trigger( 'statechange' );
       return false;
     };
