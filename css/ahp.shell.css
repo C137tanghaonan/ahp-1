@@ -170,22 +170,22 @@
 }
 .view table {
   float: left;
+  line-height : 140%;
 }
 .view td{
   padding   : 0 10px 0 10px;
   width     : 300px;
   border-style : none;
-  line-height : 140%;
 }
 .view th{
   padding   : 0 10px 0 10px;
   width     : 100px;
   font-weight : normal;
   border-style : none;
-  line-height : 140%;
 }
 .result {
   border-collapse : collapse; 
+  line-height : 140%;
 }
 .result  td, th{
   border: 1px solid black;
@@ -195,7 +195,7 @@
   text-align : center;
 }
 .result th{
-  padding     : 0 10px 0 10px;
+  padding     : 0 20px 0 20px;
   text-align  : center;
 }
 .result .noborder  {
