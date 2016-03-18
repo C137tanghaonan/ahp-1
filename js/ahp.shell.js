@@ -134,7 +134,7 @@ ahp.shell = (function () {
       case 'name':
         item = ahp.model.decision.get_name();
         content_html += '<div class="edit" id="e0">';
-        content_html += '<input type="text" value="'+ item +'"/>';
+        content_html += '<input type="text" value="'+ item +'" maxlength="50" />';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
         content_html += '<label class="error_msg"></label>';
         content_html += '</div>';
@@ -155,7 +155,7 @@ ahp.shell = (function () {
           div_e = 'e' + i;
           div_v = 'v' + i;
           content_html += '<div class="edit" id="'+ div_e +'">';
-          content_html += '<input type="text" value="'+ item +'"/>';
+          content_html += '<input type="text" value="'+ item +'" maxlength="50" />';
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
           content_html += '<input type="button" value="Delete" class="ahp-shell-main-content-submit delete"/>';
           content_html += '<label class="error_msg"></label>';
@@ -168,7 +168,7 @@ ahp.shell = (function () {
         div_e = 'e' + (i+1);
         div_v = 'v' + (i+1);
         content_html += '<div class="edit" id="'+ div_e +'">';
-        content_html += '<input type="text" value=""/>';
+        content_html += '<input type="text" value="" maxlength="50" />';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
         content_html += '<label class="error_msg"></label>';
         content_html += '</div>';
@@ -192,7 +192,7 @@ ahp.shell = (function () {
           div_e = 'e' + i;
           div_v = 'v' + i;
           content_html += '<div class="edit" id="'+ div_e +'">';
-          content_html += '<input type="text" value="'+ item +'"/>';
+          content_html += '<input type="text" value="'+ item +'" maxlength="50" />';
           content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
           content_html += '<input type="button" value="Delete" class="ahp-shell-main-content-submit delete"/>';
           content_html += '<label class="error_msg"></label>';
@@ -205,7 +205,7 @@ ahp.shell = (function () {
         div_e = 'e' + (i+1);
         div_v = 'v' + (i+1);
         content_html += '<div class="edit" id="'+ div_e +'">';
-        content_html += '<input type="text" value=""/>';
+        content_html += '<input type="text" value="" maxlength="50" />';
         content_html += '<input type="button" value="Update" class="ahp-shell-main-content-submit"/>';
         content_html += '<label class="error_msg"></label>';
         content_html += '</div>';
@@ -232,9 +232,9 @@ ahp.shell = (function () {
           i2 = item.split('_')[1];
           
           content_html += '<tr>';
-          content_html += '<td align="left"><label>'  + ahp.model.decision.get_criteria()[i1] + '</label></td>';
+          content_html += '<td align="left">'  + ahp.model.decision.get_criteria()[i1] + '</td>';
           content_html += '<th>vs</th>'
-          content_html += '<td align="right"><label>' + ahp.model.decision.get_criteria()[i2] + '</label></td>';
+          content_html += '<td align="right">' + ahp.model.decision.get_criteria()[i2] + '</td>';
           content_html += '<th>' + ahp.model.decision.get_compare_criteria()[item] + '</th>';
           content_html += '<td><div class="button" id="'+ div_b +'"><input type="button" value="Edit"   class="ahp-shell-main-content-submit"/></div></td>';
           content_html += '</tr>';
@@ -286,9 +286,9 @@ ahp.shell = (function () {
             i2 = item.split('_')[2];
             content_html += '<tr>';
             content_html += '<th>'+ citem + ':</th>';
-            content_html += '<td align="left"><label>'  + ahp.model.decision.get_alternatives()[i1] + '</label></td>';
+            content_html += '<td align="left">'  + ahp.model.decision.get_alternatives()[i1] + '</td>';
             content_html += '<th>vs</th>'
-            content_html += '<td align="right"><label>' + ahp.model.decision.get_alternatives()[i2] + '</label></td>';
+            content_html += '<td align="right">' + ahp.model.decision.get_alternatives()[i2] + '</td>';
             content_html += '<th>' + ahp.model.decision.get_compare_alternatives()[item] + '</th>';
             content_html += '<td><div class="button" id="'+ div_b +'"><input type="button" value="Edit"   class="ahp-shell-main-content-submit"/></div></td>';
             content_html += '</tr>' 

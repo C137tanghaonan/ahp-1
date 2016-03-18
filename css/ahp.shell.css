@@ -86,7 +86,7 @@
 }
 .ahp-shell-main-content  input[type=text] {
   float         : left;
-  width         : 300px;
+  width         : 600px;
   height        : 50px;
   margin-top    : 20px;
   padding-top   : 20px;
@@ -102,7 +102,7 @@
   }
 .ahp-shell-main-content  label{
   float          : left;
-  width          : 300px;
+  width          : 600px;
   height         : 50px;
   margin-top     : 20px;
   padding-top    : 10px;
@@ -173,12 +173,16 @@
 }
 .view td{
   padding   : 0 10px 0 10px;
+  width     : 300px;
   border-style : none;
+  line-height : 140%;
 }
 .view th{
-  padding   : 30px 10px 0 10px;
+  padding   : 0 10px 0 10px;
+  width     : 100px;
   font-weight : normal;
   border-style : none;
+  line-height : 140%;
 }
 .result {
   border-collapse : collapse; 
